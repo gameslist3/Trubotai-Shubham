@@ -2,14 +2,18 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Calculator, Users, Database, Rocket, ArrowRight } from "lucide-react";
+import { Calculator, Briefcase, Database, Rocket, Users, Sparkles, Building2, FileText, Home, ArrowRight } from "lucide-react";
 
 const categories = [
-  { name: "Finance Templates", icon: Calculator, price: "49", href: "/marketplace/finance-templates", bg: "bg-blue-100", iconColor: "text-blue-600" },
-  { name: "Investor", icon: Users, price: "199", href: "/marketplace/investor-database", bg: "bg-purple-100", iconColor: "text-purple-600" },
-  { name: "Grant", icon: Database, price: "49", href: "/marketplace/grant-database", bg: "bg-green-100", iconColor: "text-green-600" },
-  { name: "Accelerator", icon: Rocket, price: "49", href: "/marketplace/accelerator-database", bg: "bg-orange-100", iconColor: "text-orange-600" },
-  { name: "Leads (1M)", icon: Users, price: "49", href: "/marketplace/1m-leads", bg: "bg-pink-100", iconColor: "text-pink-600" },
+  { name: "Finance Templates", icon: Calculator, price: "49", href: "/marketplace/finance-templates", bg: "bg-blue-100", iconColor: "text-blue-600", desc: "Professional financial planning and analysis templates. Budget, forecast, and report with ease to drive smarter business decisions." },
+  { name: "Investor", icon: Briefcase, price: "199", href: "/marketplace/investor-database", bg: "bg-purple-100", iconColor: "text-purple-600", desc: "Curated investor database with detailed funding preferences and contact info. Connect with the right VCs and angels for your startup." },
+  { name: "Grant", icon: Database, price: "49", href: "/marketplace/grant-database", bg: "bg-green-100", iconColor: "text-green-600", desc: "Comprehensive grant database with eligibility filters and deadline tracking. Find and secure funding for your next big project." },
+  { name: "Accelerator", icon: Rocket, price: "49", href: "/marketplace/accelerator-database", bg: "bg-orange-100", iconColor: "text-orange-600", desc: "Top startup accelerator programs with application details and success metrics. Get into the best programs to scale faster." },
+  { name: "Leads (1M)", icon: Users, price: "49", href: "/marketplace/1m-leads", bg: "bg-pink-100", iconColor: "text-pink-600", desc: "1 million verified B2B leads across industries and regions. Target, filter, and convert your ideal customer profiles." },
+  { name: "AI LinkedIn Prompts Pack", icon: Sparkles, price: "49", href: "/marketplace/ai-linkedin-prompts", bg: "bg-indigo-100", iconColor: "text-indigo-600", desc: "AI-powered prompt templates for LinkedIn content creation. Generate engaging posts, comments, and outreach messages that get results." },
+  { name: "Architecture PRD", icon: Building2, price: "49", href: "/marketplace/architecture-prd", bg: "bg-teal-100", iconColor: "text-teal-600", desc: "Comprehensive architecture documentation templates for system design. Define constraints, trade-offs, and technical decisions with clarity." },
+  { name: "Product PRDs", icon: FileText, price: "39", href: "/marketplace/product-prds", bg: "bg-amber-100", iconColor: "text-amber-600", desc: "Ready-to-use product requirement document templates. Streamline product planning, align stakeholders, and ship with confidence." },
+  { name: "Real Estate", icon: Home, price: "49", href: "/marketplace/real-estate", bg: "bg-rose-100", iconColor: "text-rose-600", desc: "Complete real estate analysis templates and property calculators. Evaluate investments, manage portfolios, and close deals faster." },
 ];
 
 export default function MarketplacePage() {
@@ -47,26 +51,30 @@ export default function MarketplacePage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
               >
-                <Link href={`/verify?product=${cat.href.split("/").pop()}&price=${cat.price}`}>
-                  <div className="group relative h-full bg-white border border-gray-200 rounded-2xl p-6 md:p-7 transition-all duration-300 hover:border-blue-300 hover:shadow-xl hover:shadow-blue-600/8 hover:-translate-y-1.5">
-                    <div className="flex items-start gap-5">
-                      {/* Icon */}
-                      <div className={`relative flex-shrink-0 w-16 h-16 rounded-2xl ${cat.bg} flex items-center justify-center shadow-sm group-hover:shadow-md transition-all`}>
-                        <cat.icon size={28} className={`${cat.iconColor} transition-colors`} />
+                <Link href={`/verify?product=${cat.href.split("/").pop()}&price=${cat.price}`} className="block h-full">
+                  <div className="group relative h-full bg-white border border-gray-200 rounded-2xl p-6 md:p-7 transition-all duration-300 hover:border-blue-300 hover:shadow-xl hover:shadow-blue-600/8 hover:-translate-y-1.5 flex flex-col">
+                    {/* Top section: Icon + Heading */}
+                    <div className="flex items-start gap-4">
+                      <div className={`relative flex-shrink-0 w-14 h-14 md:w-16 md:h-16 rounded-2xl ${cat.bg} flex items-center justify-center shadow-sm group-hover:shadow-md transition-all`}>
+                        <cat.icon size={26} className={`${cat.iconColor} transition-colors`} />
                       </div>
-                      {/* Content */}
-                      <div className="flex-1 min-w-0">
-                        <h3 className="text-lg font-bold text-[#18352b] mb-3 group-hover:text-blue-700 transition-colors">
-                          {cat.name}
-                        </h3>
-                        <div className="flex items-center justify-between">
-                          <span className="text-2xl font-bold text-blue-600">${cat.price}</span>
-                          <span className="inline-flex items-center gap-1.5 text-sm font-medium text-gray-500 group-hover:text-blue-600 transition-colors">
-                            Buy Now
-                            <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
-                          </span>
-                        </div>
-                      </div>
+                      <h3 className="text-base md:text-lg font-bold text-[#18352b] mt-3 md:mt-4 group-hover:text-blue-700 transition-colors leading-tight">
+                        {cat.name}
+                      </h3>
+                    </div>
+
+                    {/* Middle section: Description (pushes bottom down) */}
+                    <p className="text-xs md:text-sm text-gray-500 leading-relaxed mt-5 mb-0 flex-1">
+                      {cat.desc}
+                    </p>
+
+                    {/* Bottom section: Price + Buy Now (sticky to bottom) */}
+                    <div className="flex items-center justify-between mt-auto pt-5 border-t border-gray-100">
+                      <span className="text-xl md:text-2xl font-bold text-blue-600">${cat.price}</span>
+                      <span className="inline-flex items-center gap-1.5 text-sm font-medium text-gray-500 group-hover:text-blue-600 transition-colors">
+                        Buy Now
+                        <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
+                      </span>
                     </div>
 
                     {/* Hover accent bar */}
