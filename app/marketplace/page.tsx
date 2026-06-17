@@ -4,6 +4,8 @@ import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Calculator, Briefcase, Database, Rocket, Users, Sparkles, Building2, FileText, Home, ArrowRight, Info, X } from "lucide-react";
+import { getProductsByFilter, products, filterToSlugs } from "@/lib/product-data";
+import ProductDetailView from "@/components/marketplace/product-detail-view";
 
 // ── Filters ──
 const filters = [
@@ -256,15 +258,14 @@ interface Category {
   bg: string;
   iconColor: string;
   desc: string;
-  limitedOffer?: boolean;
 }
 
 const categories: Category[] = [
   { name: "Finance Templates", tag: "finance", icon: Calculator, price: "49", href: "/marketplace/finance-templates", bg: "bg-blue-100", iconColor: "text-blue-600", desc: "Professional financial planning and analysis templates. Budget, forecast, and report with ease to drive smarter business decisions." },
-  { name: "Investor", tag: "investor", icon: Briefcase, price: "199", href: "/marketplace/investor-database", bg: "bg-purple-100", iconColor: "text-purple-600", desc: "Curated investor database with detailed funding preferences and contact info. Connect with the right VCs and angels for your startup.", limitedOffer: true },
+  { name: "Investor", tag: "investor", icon: Briefcase, price: "199", href: "/marketplace/investor-database", bg: "bg-purple-100", iconColor: "text-purple-600", desc: "Curated investor database with detailed funding preferences and contact info. Connect with the right VCs and angels for your startup." },
   { name: "Grant", tag: "database", icon: Database, price: "49", href: "/marketplace/grant-database", bg: "bg-green-100", iconColor: "text-green-600", desc: "Comprehensive grant database with eligibility filters and deadline tracking. Find and secure funding for your next big project." },
   { name: "Accelerator", tag: "database", icon: Rocket, price: "49", href: "/marketplace/accelerator-database", bg: "bg-orange-100", iconColor: "text-orange-600", desc: "Top startup accelerator programs with application details and success metrics. Get into the best programs to scale faster." },
-  { name: "Leads (1M)", tag: "database", icon: Users, price: "49", href: "/marketplace/1m-leads", bg: "bg-pink-100", iconColor: "text-pink-600", desc: "1 million verified B2B leads across industries and regions. Target, filter, and convert your ideal customer profiles.", limitedOffer: true },
+  { name: "Leads (1M)", tag: "database", icon: Users, price: "49", href: "/marketplace/1m-leads", bg: "bg-pink-100", iconColor: "text-pink-600", desc: "1 million verified B2B leads across industries and regions. Target, filter, and convert your ideal customer profiles." },
   { name: "AI LinkedIn Prompts Pack", tag: "ai", icon: Sparkles, price: "49", href: "/marketplace/ai-linkedin-prompts", bg: "bg-indigo-100", iconColor: "text-indigo-600", desc: "AI-powered prompt templates for LinkedIn content creation. Generate engaging posts, comments, and outreach messages that get results." },
   { name: "Architecture PRD", tag: "template", icon: Building2, price: "49", href: "/marketplace/architecture-prd", bg: "bg-teal-100", iconColor: "text-teal-600", desc: "Comprehensive architecture documentation templates for system design. Define constraints, trade-offs, and technical decisions with clarity." },
   { name: "Product PRDs", tag: "template", icon: FileText, price: "39", href: "/marketplace/product-prds", bg: "bg-amber-100", iconColor: "text-amber-600", desc: "Ready-to-use product requirement document templates. Streamline product planning, align stakeholders, and ship with confidence." },
@@ -276,6 +277,7 @@ export default function MarketplacePage() {
   const [activeFilter, setActiveFilter] = useState<string>("all");
   const [tooltipCard, setTooltipCard] = useState<string | null>(null);
   const [tooltipPos, setTooltipPos] = useState<{ top: number; left: number; side: 'right' | 'left' | 'center' } | null>(null);
+  const [selectedProductSlug, setSelectedProductSlug] = useState<string | null>(null);
   const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Clear position when tooltip closes
@@ -285,12 +287,22 @@ export default function MarketplacePage() {
     }
   }, [tooltipCard]);
 
+  // Reset selected product when filter changes
+  useEffect(() => {
+    setSelectedProductSlug(null);
+  }, [activeFilter]);
+
   const filteredCategories =
     activeFilter === "all"
       ? categories
       : categories.filter((cat) => cat.tag === activeFilter);
 
   const selectedDetails = tooltipCard ? productDetails[tooltipCard] : null;
+
+  // For specific filter views: get products from shared data
+  const isFilteredView = activeFilter !== "all";
+  const filterProducts = isFilteredView ? getProductsByFilter(activeFilter) : [];
+  const currentProductSlug = selectedProductSlug || (filterToSlugs[activeFilter]?.[0] || null);
 
   return (
     <>
@@ -319,7 +331,7 @@ export default function MarketplacePage() {
         </div>
       </section>
 
-      {/* Product Grid */}
+      {/* Product Grid / Detail View */}
       <section className="pb-20 md:pb-28">
         <div className="mx-auto w-full max-w-[1400px] px-6 md:px-8 lg:px-12">
           {/* ── Filter Section ── */}
@@ -341,147 +353,262 @@ export default function MarketplacePage() {
               </button>
             ))}
           </div>
+        </div>
 
-          {/* ── Cards Grid ── */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredCategories.map((cat, index) => {
-              const details = productDetails[cat.name];
-              const showTooltip = tooltipCard === cat.name;
+        {/* ── Full-width 50% OFF Ribbon (both edges curve upward in same direction) ── */}
+        <div
+          className="relative w-full py-6 md:py-7 overflow-hidden mb-8 md:mb-10"
+          style={{
+            clipPath: `polygon(
+              0% 10%, 20% 6%, 40% 4%, 50% 3%, 60% 4%, 80% 6%, 100% 10%,
+              100% 92%, 80% 89%, 60% 87%, 50% 86%, 40% 87%, 20% 89%, 0% 92%
+            )`
+          }}
+        >
+          {/* Base gradient background */}
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700" />
 
-              return (
-                <motion.div
-                  key={cat.name}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
-                  className={`relative h-full ${showTooltip ? "z-50" : "z-[1]"}`}
-                >
-                  {/* ── Card body ── */}
-                  <div className="group bg-white border border-gray-200 rounded-2xl px-5 pt-5 pb-5 transition-all duration-300 flex flex-col relative hover:border-blue-300 hover:shadow-xl hover:shadow-blue-600/8 hover:-translate-y-1.5">
-                    {/* Promo strip line — full-width banner at top */}
-                    {cat.limitedOffer && (
-                      <motion.div
-                        initial={{ opacity: 0, y: -12 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.35, ease: "easeOut", delay: 0.15 }}
-                        className="absolute -top-px left-0 right-0 z-0 flex items-center justify-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700 rounded-t-2xl text-[11px] md:text-xs font-semibold leading-tight whitespace-nowrap pointer-events-none overflow-hidden shadow-sm"
-                      >
-                        {/* Subtle stripe overlay */}
-                        <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.06)_50%,transparent_75%)]" />
-                        <span className="relative inline-flex items-center gap-1.5 bg-white/20 backdrop-blur-sm text-white px-2 py-0.5 rounded-[4px] tracking-wide">
-                          <svg className="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
-                          50% OFF
-                        </span>
-                        <span className="relative text-white/90 font-medium tracking-wide">
-                          All Products
-                        </span>
-                        <span className="relative w-1 h-1 rounded-full bg-white/30" />
-                        <span className="relative text-white/75 text-[10px] md:text-[11px]">
-                          Limited Time!
-                        </span>
-                      </motion.div>
-                    )}
+          {/* Soft inner radial glow */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_50%_50%,rgba(255,255,255,0.08),transparent_70%)]" />
 
-                    {/* Content wrapper — renders above the promo strip */}
-                    <div className="relative z-[1] flex flex-col flex-1">
-                      {/* Top: Icon + Heading */}
-                      <div className="flex items-center gap-3">
-                        <div
-                          className={`relative flex-shrink-0 w-14 h-14 md:w-16 md:h-16 rounded-2xl ${cat.bg} flex items-center justify-center shadow-sm transition-all`}
-                        >
-                          <cat.icon
-                            size={32}
-                            className={`${cat.iconColor} transition-colors`}
-                          />
-                        </div>
-                        <h3 className="text-[15px] md:text-[17px] font-bold text-[#18352b] transition-colors leading-tight">
-                          {cat.name}
-                        </h3>
-                      </div>
+          {/* Subtle noise/grain texture */}
+          <div
+            className="absolute inset-0 opacity-[0.035]"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+              backgroundRepeat: 'repeat',
+              backgroundSize: '128px 128px',
+            }}
+          />
 
-                      {/* Content area — grows to fill space for equal-height cards */}
-                      <div className="flex flex-1 flex-col mt-4">
-                        <p className="text-xs md:text-sm text-gray-500 leading-relaxed">
-                          {cat.desc}
-                        </p>
+          {/* Top highlight edge glow */}
+          <div className="absolute top-0 left-[15%] right-[15%] h-px bg-gradient-to-r from-transparent via-white/15 to-transparent" />
 
-                        {/* "See more" — compact, no divider */}
-                        <div className="flex justify-end mt-auto pt-3 pb-1">
-                        <div className="relative">
-                          <button
-                            onClick={(e) => {
-                              if (window.innerWidth < 640) {
-                                e.stopPropagation();
-                                setTooltipCard(tooltipCard === cat.name ? null : cat.name);
-                              }
-                            }}
-                            onMouseEnter={(e) => {
-                              if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
-                              // Calculate position relative to the card
-                              const btn = e.currentTarget;
-                              const card = btn.closest('.group') as HTMLElement | null;
-                              if (card) {
-                                const rect = card.getBoundingClientRect();
-                                const tooltipW = 448; // 28rem
-                                const gap = 12;
-                                const estimatedH = 480; // estimated max tooltip height
-                                // Clamp top so tooltip stays within viewport
-                                // Center tooltip vertically with the card
-                                const top = Math.max(16, Math.min(rect.top + rect.height / 2 - estimatedH / 2, window.innerHeight - estimatedH - 16));
-                                // Position to the right if room, otherwise to the left
-                                if (window.innerWidth - rect.right >= tooltipW + gap) {
-                                  setTooltipPos({ top, left: rect.right + gap, side: 'right' });
-                                } else if (rect.left >= tooltipW + gap) {
-                                  setTooltipPos({ top, left: rect.left - tooltipW - gap, side: 'left' });
-                                } else {
-                                  // Fallback: center on screen
-                                  setTooltipPos({ top: Math.max(16, (window.innerHeight - estimatedH) / 2), left: (window.innerWidth - tooltipW) / 2, side: 'center' });
-                                }
-                              }
-                              setTooltipCard(cat.name);
-                            }}
-                            onMouseLeave={() => {
-                              closeTimeoutRef.current = setTimeout(() => setTooltipCard(null), 100);
-                            }}
-                            className="inline-flex items-center gap-1 text-xs font-medium text-blue-400/70 hover:text-blue-600 cursor-pointer transition-colors select-none"
-                          >
-                            <Info size={12} />
-                            <span>See more</span>
-                          </button>
+          {/* Animated shimmer sweep */}
+          <motion.div
+            className="absolute inset-0"
+            initial={{ x: '-100%' }}
+            animate={{ x: '400%' }}
+            transition={{ duration: 4, repeat: Infinity, ease: 'linear', repeatDelay: 4 }}
+            style={{
+              background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.08) 50%, transparent 100%)',
+              width: '60%',
+            }}
+          />
 
-
-                        </div>
-                      </div>
-                      </div>
-
-                      {/* Bottom: Price + Buy Now */}
-                      <div className="flex items-center justify-between mt-auto pt-5 border-t border-gray-100">
-                        <span className="text-xl md:text-2xl font-bold text-blue-600">
-                          ${cat.price}
-                        </span>
-                        <Link
-                          href={`/verify?product=${cat.href.split("/").pop()}&price=${cat.price}`}
-                          className="inline-flex items-center gap-1.5 text-sm font-medium text-gray-500 hover:text-blue-600 transition-all duration-200 hover:gap-2"
-                        >
-                          Buy Now
-                          <ArrowRight
-                            size={14}
-                            className="transition-transform hover:translate-x-0.5"
-                          />
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              );
-            })}
+          {/* Floating decorative sparkles */}
+          <div className="absolute inset-0 pointer-events-none">
+            <motion.div className="absolute -top-3 -left-3 w-14 h-14 rounded-full bg-white/5 blur-xl" />
+            <motion.div className="absolute -bottom-3 -right-3 w-16 h-16 rounded-full bg-blue-400/10 blur-xl" />
+            <motion.div
+              className="absolute top-1/3 left-[12%] w-1.5 h-1.5 rounded-full bg-white/25"
+              animate={{ opacity: [0.2, 0.6, 0.2] }}
+              transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+            />
+            <motion.div
+              className="absolute top-1/2 right-[18%] w-1 h-1 rounded-full bg-white/20"
+              animate={{ opacity: [0.3, 0.8, 0.3] }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+            />
+            <motion.div
+              className="absolute bottom-1/3 right-[30%] w-2 h-2 rounded-full bg-blue-300/20"
+              animate={{ opacity: [0.1, 0.5, 0.1] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+            />
           </div>
 
-          {/* No results */}
-          {filteredCategories.length === 0 && (
-            <p className="text-center text-gray-400 py-16">
-              No products match this category.
-            </p>
+          {/* Content — centered */}
+          <div className="relative mx-auto w-full max-w-[1400px] px-6 md:px-8 lg:px-12 py-1">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-5">
+              {/* 50% OFF badge with pulse */}
+              <motion.span
+                animate={{ scale: [1, 1.06, 1] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                className="inline-flex items-center gap-1.5 bg-white/20 backdrop-blur-sm text-white px-3.5 py-1 rounded-md text-xs md:text-sm font-bold tracking-wide ring-1 ring-white/20 shadow-lg"
+              >
+                <svg className="w-3.5 h-3.5 text-yellow-300" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+                50% OFF
+              </motion.span>
+
+              <span className="text-white/95 font-semibold text-xs md:text-sm tracking-wide">
+                All Products
+              </span>
+
+              <span className="hidden sm:block w-1 h-1 rounded-full bg-white/30" />
+
+              <span className="text-white/70 text-[11px] md:text-xs font-medium">
+                Limited Time Offer!
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div className="mx-auto w-full max-w-[1400px] px-6 md:px-8 lg:px-12">
+          {isFilteredView && filterProducts.length > 0 ? (
+            /* ── Filtered: Show inline product detail view(s) ── */
+            <div>
+              {/* Multi-product selector */}
+              {filterProducts.length > 1 && (
+                <div className="flex flex-wrap items-center justify-center gap-2 mb-6">
+                  {filterProducts.map((p) => {
+                    const slug = Object.keys(products).find((s) => products[s].name === p.name) || "";
+                    const isActive = currentProductSlug === slug;
+                    return (
+                      <button
+                        key={p.name}
+                        onClick={() => setSelectedProductSlug(slug)}
+                        className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all duration-200 ${
+                          isActive
+                            ? "bg-blue-600 text-white shadow-md shadow-blue-600/20"
+                            : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                        }`}
+                      >
+                        {p.name}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+
+              {currentProductSlug && products[currentProductSlug] ? (
+                <div className="max-w-[1200px] mx-auto">
+                  {/* Breadcrumb */}
+                  <div className="flex items-center gap-2 text-xs text-gray-400 mb-6">
+                    <span className="text-gray-600 font-medium">
+                      {filters.find((f) => f.value === activeFilter)?.label}
+                    </span>
+                    <span>/</span>
+                    <span className="text-[#18352b] font-medium">{products[currentProductSlug].name}</span>
+                  </div>
+                  <ProductDetailView product={products[currentProductSlug]} slug={currentProductSlug} />
+                </div>
+              ) : (
+                <p className="text-center text-gray-400 py-16">Product not found.</p>
+              )}
+            </div>
+          ) : (
+            /* ── "All" filter: Show card grid ── */
+            <>
+              {/* ── Cards Grid ── */}
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredCategories.map((cat, index) => {
+                  const details = productDetails[cat.name];
+                  const showTooltip = tooltipCard === cat.name;
+
+                  return (
+                    <motion.div
+                      key={cat.name}
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, delay: index * 0.1 }}
+                      className={`relative h-full ${showTooltip ? "z-50" : "z-[1]"}`}
+                    >
+                      {/* ── Card body ── */}
+                      <div className="group bg-white border border-gray-200 rounded-2xl px-5 pt-5 pb-5 transition-all duration-300 flex flex-col relative hover:border-blue-300 hover:shadow-xl hover:shadow-blue-600/8 hover:-translate-y-1.5">
+                        <div className="flex flex-col flex-1">
+                          {/* Top: Icon + Heading */}
+                          <div className="flex items-center gap-3">
+                            <div
+                              className={`relative flex-shrink-0 w-14 h-14 md:w-16 md:h-16 rounded-2xl ${cat.bg} flex items-center justify-center shadow-sm transition-all`}
+                            >
+                              <cat.icon
+                                size={32}
+                                className={`${cat.iconColor} transition-colors`}
+                              />
+                            </div>
+                            <h3 className="text-[15px] md:text-[17px] font-bold text-[#18352b] transition-colors leading-tight">
+                              {cat.name}
+                            </h3>
+                          </div>
+
+                          {/* Content area — grows to fill space for equal-height cards */}
+                          <div className="flex flex-1 flex-col mt-4">
+                            <p className="text-xs md:text-sm text-gray-500 leading-relaxed">
+                              {cat.desc}
+                            </p>
+
+                            {/* "See more" — compact, no divider */}
+                            <div className="flex justify-end mt-auto pt-3 pb-1">
+                            <div className="relative">
+                              <button
+                                onClick={(e) => {
+                                  if (window.innerWidth < 640) {
+                                    e.stopPropagation();
+                                    setTooltipCard(tooltipCard === cat.name ? null : cat.name);
+                                  }
+                                }}
+                                onMouseEnter={(e) => {
+                                  if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
+                                  // Calculate position relative to the card
+                                  const btn = e.currentTarget;
+                                  const card = btn.closest('.group') as HTMLElement | null;
+                                  if (card) {
+                                    const rect = card.getBoundingClientRect();
+                                    const tooltipW = 448; // 28rem
+                                    const gap = 12;
+                                    const estimatedH = 480; // estimated max tooltip height
+                                    // Clamp top so tooltip stays within viewport
+                                    // Center tooltip vertically with the card
+                                    const top = Math.max(16, Math.min(rect.top + rect.height / 2 - estimatedH / 2, window.innerHeight - estimatedH - 16));
+                                    // Position to the right if room, otherwise to the left
+                                    if (window.innerWidth - rect.right >= tooltipW + gap) {
+                                      setTooltipPos({ top, left: rect.right + gap, side: 'right' });
+                                    } else if (rect.left >= tooltipW + gap) {
+                                      setTooltipPos({ top, left: rect.left - tooltipW - gap, side: 'left' });
+                                    } else {
+                                      // Fallback: center on screen
+                                      setTooltipPos({ top: Math.max(16, (window.innerHeight - estimatedH) / 2), left: (window.innerWidth - tooltipW) / 2, side: 'center' });
+                                    }
+                                  }
+                                  setTooltipCard(cat.name);
+                                }}
+                                onMouseLeave={() => {
+                                  closeTimeoutRef.current = setTimeout(() => setTooltipCard(null), 100);
+                                }}
+                                className="inline-flex items-center gap-1 text-xs font-medium text-blue-400/70 hover:text-blue-600 cursor-pointer transition-colors select-none"
+                              >
+                                <Info size={12} />
+                                <span>See more</span>
+                              </button>
+                            </div>
+                          </div>
+                          </div>
+
+                          {/* Bottom: Price + Buy Now */}
+                          <div className="flex items-center justify-between mt-auto pt-5 border-t border-gray-100">
+                            <div className="flex flex-col">
+                              <span className="text-sm text-gray-400 line-through">
+                                ${parseInt(cat.price) * 2}
+                              </span>
+                              <span className="text-xl md:text-2xl font-bold text-blue-600">
+                                ${cat.price}
+                              </span>
+                            </div>
+                            <Link
+                              href={`/verify?product=${cat.href.split("/").pop()}&price=${cat.price}`}
+                              className="inline-flex items-center gap-1.5 text-sm font-medium text-gray-500 hover:text-blue-600 transition-all duration-200 hover:gap-2"
+                            >
+                              Buy Now
+                              <ArrowRight
+                                size={14}
+                                className="transition-transform hover:translate-x-0.5"
+                              />
+                            </Link>
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
+
+              {/* No results */}
+              {filteredCategories.length === 0 && (
+                <p className="text-center text-gray-400 py-16">
+                  No products match this category.
+                </p>
+              )}
+            </>
           )}
         </div>
       </section>
