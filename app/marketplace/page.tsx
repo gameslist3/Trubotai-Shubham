@@ -357,102 +357,119 @@ export default function MarketplacePage() {
                   className={`relative h-full ${showTooltip ? "z-50" : "z-[1]"}`}
                 >
                   {/* ── Card body ── */}
-                  <div className="group bg-white border border-gray-200 rounded-2xl px-5 pt-5 pb-4 sm:pb-5 transition-all duration-300 flex flex-col min-h-[300px] hover:border-blue-300 hover:shadow-xl hover:shadow-blue-600/8 hover:-translate-y-1.5">
-                    {/* Promo badge — right-aligned, lifted up */}
+                  <div className="group bg-white border border-gray-200 rounded-2xl px-5 pt-5 pb-5 transition-all duration-300 flex flex-col relative hover:border-blue-300 hover:shadow-xl hover:shadow-blue-600/8 hover:-translate-y-1.5">
+                    {/* Promo strip line — full-width banner at top */}
                     {cat.limitedOffer && (
-                      <div className="absolute -top-[15px] right-3 z-10 flex items-center gap-1 px-2.5 py-1.5 bg-white border border-gray-200 group-hover:border-blue-300 rounded-[50px] text-[10px] md:text-[11px] font-semibold leading-tight whitespace-nowrap pointer-events-none transition-all duration-300">
-                        <span className="bg-blue-600 text-white px-1.5 py-0.5 rounded">50% OFF</span>
-                        <span className="text-gray-300 font-normal">·</span>
-                        <span className="text-gray-500 font-normal">
-                          All Products{" "}
-                          <span className="text-gray-400">Limited Time!</span>
+                      <motion.div
+                        initial={{ opacity: 0, y: -12 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.35, ease: "easeOut", delay: 0.15 }}
+                        className="absolute -top-px left-0 right-0 z-0 flex items-center justify-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700 rounded-t-2xl text-[11px] md:text-xs font-semibold leading-tight whitespace-nowrap pointer-events-none overflow-hidden shadow-sm"
+                      >
+                        {/* Subtle stripe overlay */}
+                        <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.06)_50%,transparent_75%)]" />
+                        <span className="relative inline-flex items-center gap-1.5 bg-white/20 backdrop-blur-sm text-white px-2 py-0.5 rounded-[4px] tracking-wide">
+                          <svg className="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+                          50% OFF
                         </span>
-                      </div>
+                        <span className="relative text-white/90 font-medium tracking-wide">
+                          All Products
+                        </span>
+                        <span className="relative w-1 h-1 rounded-full bg-white/30" />
+                        <span className="relative text-white/75 text-[10px] md:text-[11px]">
+                          Limited Time!
+                        </span>
+                      </motion.div>
                     )}
 
-                    {/* Top: Icon + Heading */}
-                    <div className="flex items-center gap-3">
-                      <div
-                        className={`relative flex-shrink-0 w-14 h-14 md:w-16 md:h-16 rounded-2xl ${cat.bg} flex items-center justify-center shadow-sm transition-all`}
-                      >
-                        <cat.icon
-                          size={32}
-                          className={`${cat.iconColor} transition-colors`}
-                        />
-                      </div>
-                      <h3 className="text-[15px] md:text-[17px] font-bold text-[#18352b] transition-colors leading-tight">
-                        {cat.name}
-                      </h3>
-                    </div>
-
-                    {/* Description */}
-                    <p className="text-xs md:text-sm text-gray-500 leading-relaxed mt-4">
-                      {cat.desc}
-                    </p>
-
-                    {/* "See more" — compact, no divider */}
-                    <div className="flex sm:justify-end justify-start mt-1 sm:mt-2 py-0.5 sm:py-1 mb-[10px] sm:mb-4">
-                      <div className="relative">
-                        <button
-                          onClick={(e) => {
-                            if (window.innerWidth < 640) {
-                              e.stopPropagation();
-                              setTooltipCard(tooltipCard === cat.name ? null : cat.name);
-                            }
-                          }}
-                          onMouseEnter={(e) => {
-                            if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
-                            // Calculate position relative to the card
-                            const btn = e.currentTarget;
-                            const card = btn.closest('.group') as HTMLElement | null;
-                            if (card) {
-                              const rect = card.getBoundingClientRect();
-                              const tooltipW = 448; // 28rem
-                              const gap = 12;
-                              const estimatedH = 480; // estimated max tooltip height
-                              // Clamp top so tooltip stays within viewport
-                              // Center tooltip vertically with the card
-                              const top = Math.max(16, Math.min(rect.top + rect.height / 2 - estimatedH / 2, window.innerHeight - estimatedH - 16));
-                              // Position to the right if room, otherwise to the left
-                              if (window.innerWidth - rect.right >= tooltipW + gap) {
-                                setTooltipPos({ top, left: rect.right + gap, side: 'right' });
-                              } else if (rect.left >= tooltipW + gap) {
-                                setTooltipPos({ top, left: rect.left - tooltipW - gap, side: 'left' });
-                              } else {
-                                // Fallback: center on screen
-                                setTooltipPos({ top: Math.max(16, (window.innerHeight - estimatedH) / 2), left: (window.innerWidth - tooltipW) / 2, side: 'center' });
-                              }
-                            }
-                            setTooltipCard(cat.name);
-                          }}
-                          onMouseLeave={() => {
-                            closeTimeoutRef.current = setTimeout(() => setTooltipCard(null), 100);
-                          }}
-                          className="inline-flex items-center gap-1 text-xs font-medium text-blue-400/70 hover:text-blue-600 cursor-pointer transition-colors select-none"
+                    {/* Content wrapper — renders above the promo strip */}
+                    <div className="relative z-[1] flex flex-col flex-1">
+                      {/* Top: Icon + Heading */}
+                      <div className="flex items-center gap-3">
+                        <div
+                          className={`relative flex-shrink-0 w-14 h-14 md:w-16 md:h-16 rounded-2xl ${cat.bg} flex items-center justify-center shadow-sm transition-all`}
                         >
-                          <Info size={12} />
-                          <span>See more</span>
-                        </button>
-
-
+                          <cat.icon
+                            size={32}
+                            className={`${cat.iconColor} transition-colors`}
+                          />
+                        </div>
+                        <h3 className="text-[15px] md:text-[17px] font-bold text-[#18352b] transition-colors leading-tight">
+                          {cat.name}
+                        </h3>
                       </div>
-                    </div>
 
-                    {/* Bottom: Price + Buy Now */}
-                    <div className="flex items-center justify-between sm:mt-auto pt-1 sm:pt-5 border-t border-gray-100">
-                      <span className="text-xl md:text-2xl font-bold text-blue-600">
-                        ${cat.price}
-                      </span>
-                      <Link
-                        href={`/verify?product=${cat.href.split("/").pop()}&price=${cat.price}`}
-                        className="inline-flex items-center gap-1.5 text-sm font-medium text-gray-500 hover:text-blue-600 transition-all duration-200 hover:gap-2"
-                      >
-                        Buy Now
-                        <ArrowRight
-                          size={14}
-                          className="transition-transform hover:translate-x-0.5"
-                        />
-                      </Link>
+                      {/* Content area — grows to fill space for equal-height cards */}
+                      <div className="flex flex-1 flex-col mt-4">
+                        <p className="text-xs md:text-sm text-gray-500 leading-relaxed">
+                          {cat.desc}
+                        </p>
+
+                        {/* "See more" — compact, no divider */}
+                        <div className="flex justify-end mt-auto pt-3 pb-1">
+                        <div className="relative">
+                          <button
+                            onClick={(e) => {
+                              if (window.innerWidth < 640) {
+                                e.stopPropagation();
+                                setTooltipCard(tooltipCard === cat.name ? null : cat.name);
+                              }
+                            }}
+                            onMouseEnter={(e) => {
+                              if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
+                              // Calculate position relative to the card
+                              const btn = e.currentTarget;
+                              const card = btn.closest('.group') as HTMLElement | null;
+                              if (card) {
+                                const rect = card.getBoundingClientRect();
+                                const tooltipW = 448; // 28rem
+                                const gap = 12;
+                                const estimatedH = 480; // estimated max tooltip height
+                                // Clamp top so tooltip stays within viewport
+                                // Center tooltip vertically with the card
+                                const top = Math.max(16, Math.min(rect.top + rect.height / 2 - estimatedH / 2, window.innerHeight - estimatedH - 16));
+                                // Position to the right if room, otherwise to the left
+                                if (window.innerWidth - rect.right >= tooltipW + gap) {
+                                  setTooltipPos({ top, left: rect.right + gap, side: 'right' });
+                                } else if (rect.left >= tooltipW + gap) {
+                                  setTooltipPos({ top, left: rect.left - tooltipW - gap, side: 'left' });
+                                } else {
+                                  // Fallback: center on screen
+                                  setTooltipPos({ top: Math.max(16, (window.innerHeight - estimatedH) / 2), left: (window.innerWidth - tooltipW) / 2, side: 'center' });
+                                }
+                              }
+                              setTooltipCard(cat.name);
+                            }}
+                            onMouseLeave={() => {
+                              closeTimeoutRef.current = setTimeout(() => setTooltipCard(null), 100);
+                            }}
+                            className="inline-flex items-center gap-1 text-xs font-medium text-blue-400/70 hover:text-blue-600 cursor-pointer transition-colors select-none"
+                          >
+                            <Info size={12} />
+                            <span>See more</span>
+                          </button>
+
+
+                        </div>
+                      </div>
+                      </div>
+
+                      {/* Bottom: Price + Buy Now */}
+                      <div className="flex items-center justify-between mt-auto pt-5 border-t border-gray-100">
+                        <span className="text-xl md:text-2xl font-bold text-blue-600">
+                          ${cat.price}
+                        </span>
+                        <Link
+                          href={`/verify?product=${cat.href.split("/").pop()}&price=${cat.price}`}
+                          className="inline-flex items-center gap-1.5 text-sm font-medium text-gray-500 hover:text-blue-600 transition-all duration-200 hover:gap-2"
+                        >
+                          Buy Now
+                          <ArrowRight
+                            size={14}
+                            className="transition-transform hover:translate-x-0.5"
+                          />
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </motion.div>
