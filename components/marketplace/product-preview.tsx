@@ -1,84 +1,161 @@
-import { Zap } from "lucide-react";
+"use client";
 
+import { Zap, Building, Database, Users, Sparkles } from "lucide-react";
+import { motion } from "framer-motion";
+
+/* ── Floating emoji sticker helper ── */
+function Stickers({ items }: { items: { emoji: string; x: number; y: number; rot: number; delay: number }[] }) {
+  return (
+    <div className="absolute inset-0 pointer-events-none overflow-hidden">
+      {items.map((s, i) => (
+        <motion.div
+          key={i}
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: s.delay + 0.4, type: "spring", stiffness: 200, damping: 10 }}
+          className="absolute text-3xl md:text-4xl select-none"
+          style={{ left: `${s.x}%`, top: `${s.y}%`, transform: `rotate(${s.rot}deg)` }}
+        >
+          <motion.span
+            animate={{ y: [0, -3, 0], rotate: [0, s.rot + 5, 0] }}
+            transition={{ duration: 3 + i, repeat: Infinity, ease: "easeInOut", delay: s.delay }}
+            className="inline-block drop-shadow-md"
+          >
+            {s.emoji}
+          </motion.span>
+        </motion.div>
+      ))}
+    </div>
+  );
+}
+
+/* ── Finance ── */
 export function FinancePreview() {
   return (
-    <div className="w-full aspect-[4/3] bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-      <div className="h-8 bg-gray-50 border-b border-gray-200 flex items-center px-3 gap-1.5">
-        <span className="w-2.5 h-2.5 rounded-full bg-red-400" />
-        <span className="w-2.5 h-2.5 rounded-full bg-yellow-400" />
-        <span className="w-2.5 h-2.5 rounded-full bg-green-400" />
-        <span className="ml-2 text-[10px] text-gray-400 font-medium">Finance Dashboard — Preview</span>
+    <div className="w-full aspect-[4/3] bg-white overflow-hidden flex flex-col relative">
+      <Stickers items={[
+        { emoji: "💰", x: 3, y: 4, rot: -15, delay: 0 },
+        { emoji: "📈", x: 85, y: 4, rot: 10, delay: 0.3 },
+        { emoji: "⚡", x: 50, y: 85, rot: -8, delay: 0.6 },
+      ]} />
+      <div className="flex items-center px-3 py-2 gap-1.5 border-b border-gray-100">
+        <span className="w-2 h-2 rounded-full bg-red-400" />
+        <span className="w-2 h-2 rounded-full bg-yellow-400" />
+        <span className="w-2 h-2 rounded-full bg-green-400" />
       </div>
-      <div className="p-3 space-y-2">
-        <div className="flex gap-2">
-          <div className="flex-1 bg-blue-50 rounded-lg p-2.5 border border-blue-100">
-            <div className="text-[9px] text-blue-600 font-semibold uppercase tracking-wider">Revenue</div>
-            <div className="text-lg font-bold text-[#18352b]">$128.5K</div>
-            <div className="flex items-center gap-1 text-[10px] text-green-600">
-              <span>↑</span><span>+12.3%</span>
-            </div>
-          </div>
-          <div className="flex-1 bg-emerald-50 rounded-lg p-2.5 border border-emerald-100">
-            <div className="text-[9px] text-emerald-600 font-semibold uppercase tracking-wider">Burn Rate</div>
-            <div className="text-lg font-bold text-[#18352b]">$42.1K</div>
-            <div className="flex items-center gap-1 text-[10px] text-amber-600">
-              <span>→</span><span>Stable</span>
-            </div>
-          </div>
-          <div className="flex-1 bg-purple-50 rounded-lg p-2.5 border border-purple-100">
-            <div className="text-[9px] text-purple-600 font-semibold uppercase tracking-wider">Runway</div>
-            <div className="text-lg font-bold text-[#18352b]">18.2 mo</div>
-            <div className="flex items-center gap-1 text-[10px] text-green-600">
-              <span>↑</span><span>Healthy</span>
-            </div>
-          </div>
+      <div className="flex-1 p-3 flex flex-col gap-3">
+        <div className="flex gap-2 flex-[2]">
+          {[
+            { value: "$128.5K", label: "Revenue", change: "+12.3%", up: true },
+            { value: "18.2 mo", label: "Runway", change: "Healthy", up: true },
+            { value: "$42.1K", label: "Burn", change: "Stable", up: false },
+          ].map((card, i) => (
+            <motion.div
+              key={card.label}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.1 }}
+              className="flex-1 bg-blue-50/60 rounded-xl border border-blue-100/60 flex flex-col items-center justify-center p-2"
+            >
+              <motion.span
+                initial={{ scale: 0.8 }}
+                animate={{ scale: 1 }}
+                transition={{ delay: i * 0.15 + 0.2, type: "spring", stiffness: 120 }}
+                className="text-lg md:text-xl font-bold text-[#18352b]"
+              >
+                {card.value}
+              </motion.span>
+              <div className="flex items-center gap-1 mt-0.5">
+                <motion.span
+                  animate={{ y: [0, -2, 0] }}
+                  transition={{ duration: 2, repeat: Infinity, delay: i * 0.3 }}
+                  className={`text-[10px] ${card.up ? "text-green-600" : "text-amber-600"}`}
+                >↑</motion.span>
+                <span className={`text-[9px] font-medium ${card.up ? "text-green-600" : "text-amber-600"}`}>{card.change}</span>
+              </div>
+            </motion.div>
+          ))}
         </div>
-        <div className="bg-white rounded-lg border border-gray-100 p-2.5">
-          <div className="flex justify-between items-center mb-1.5">
-            <span className="text-[9px] font-semibold text-gray-500 uppercase">Cash Flow Forecast</span>
-            <span className="text-[9px] text-blue-600 font-medium">+15.2%</span>
-          </div>
-          <div className="h-12 flex items-end gap-[3px]">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3 }}
+          className="flex-[3] bg-gray-50/80 rounded-xl border border-gray-100 p-3 flex flex-col"
+        >
+          <div className="flex-1 flex items-end gap-[2px]">
             {[35, 42, 38, 45, 52, 48, 55, 62, 58, 65, 72, 68].map((h, i) => (
-              <div key={i} className="flex-1 bg-blue-500/70 rounded-t-sm" style={{ height: `${h}%` }} />
+              <motion.div
+                key={i}
+                initial={{ height: 0 }}
+                animate={{ height: `${h}%` }}
+                transition={{ delay: i * 0.05, duration: 0.5, ease: "easeOut" }}
+                className="flex-1 bg-gradient-to-t from-blue-400 to-blue-300 rounded-t-sm"
+                whileHover={{ opacity: 0.7 }}
+              />
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );
 }
 
+/* ── Investor ── */
 export function InvestorPreview() {
   return (
-    <div className="w-full aspect-[4/3] bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-      <div className="h-8 bg-gray-50 border-b border-gray-200 flex items-center px-3 gap-1.5">
-        <span className="w-2.5 h-2.5 rounded-full bg-red-400" />
-        <span className="w-2.5 h-2.5 rounded-full bg-yellow-400" />
-        <span className="w-2.5 h-2.5 rounded-full bg-green-400" />
-        <span className="ml-2 text-[10px] text-gray-400 font-medium">Investor Database — Preview</span>
+    <div className="w-full aspect-[4/3] bg-white overflow-hidden flex flex-col relative">
+      <Stickers items={[
+        { emoji: "🚀", x: 3, y: 4, rot: 12, delay: 0 },
+        { emoji: "💼", x: 85, y: 4, rot: -10, delay: 0.3 },
+        { emoji: "🎯", x: 50, y: 85, rot: 8, delay: 0.6 },
+      ]} />
+      <div className="flex items-center px-3 py-2 gap-1.5 border-b border-gray-100">
+        <span className="w-2 h-2 rounded-full bg-red-400" />
+        <span className="w-2 h-2 rounded-full bg-yellow-400" />
+        <span className="w-2 h-2 rounded-full bg-green-400" />
       </div>
-      <div className="p-3">
-        <div className="flex items-center gap-2 mb-2">
-          <div className="w-5 h-5 rounded bg-purple-100 flex items-center justify-center text-[10px] text-purple-600 font-bold">I</div>
-          <div className="text-[11px] font-semibold text-gray-700">Top Investors Matching Your Profile</div>
-          <div className="ml-auto text-[9px] text-purple-600 bg-purple-50 px-1.5 py-0.5 rounded font-medium">12,400+</div>
+      <div className="flex-1 p-3 flex flex-col gap-2">
+        <div className="flex items-center justify-between">
+          <motion.div
+            animate={{ scale: [1, 1.1, 1] }}
+            transition={{ duration: 2, repeat: Infinity }}
+            className="w-6 h-6 rounded-lg bg-blue-100 flex items-center justify-center"
+          >
+            <Building size={12} className="text-blue-600" />
+          </motion.div>
+          <motion.span
+            animate={{ opacity: [0.7, 1, 0.7] }}
+            transition={{ duration: 1.5, repeat: Infinity }}
+            className="text-[10px] text-blue-600 bg-blue-50 px-2 py-0.5 rounded font-semibold"
+          >12.4K</motion.span>
         </div>
-        <div className="space-y-1.5">
+        <div className="flex-1 flex flex-col gap-1.5">
           {[
-            { name: "Sequoia Capital", stage: "Seed - Series B", range: "$500K - $5M" },
-            { name: "a16z", stage: "Series A - C", range: "$3M - $15M" },
-            { name: "YC Continuity", stage: "Late Seed", range: "$500K - $2M" },
-            { name: "Index Ventures", stage: "Seed - Series A", range: "$1M - $10M" },
+            { name: "Sequoia", range: "$500K–$5M", initials: "SC" },
+            { name: "a16z", range: "$3M–$15M", initials: "A" },
+            { name: "YC Continuity", range: "$500K–$2M", initials: "YC" },
+            { name: "Index Ventures", range: "$1M–$10M", initials: "IV" },
           ].map((inv, i) => (
-            <div key={i} className="flex items-center gap-2 p-1.5 rounded-lg hover:bg-gray-50 transition-colors">
-              <div className="w-6 h-6 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 text-white flex items-center justify-center text-[9px] font-bold">{inv.name[0]}</div>
-              <div className="flex-1 min-w-0">
-                <div className="text-[11px] font-semibold text-gray-800 truncate">{inv.name}</div>
-                <div className="text-[9px] text-gray-400">{inv.stage}</div>
-              </div>
-              <div className="text-[9px] text-purple-600 font-medium">{inv.range}</div>
-            </div>
+            <motion.div
+              key={inv.name}
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: i * 0.08 }}
+              className="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 transition-colors flex-1"
+            >
+              <motion.div
+                whileHover={{ scale: 1.2 }}
+                className="w-7 h-7 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-[10px] font-bold flex-shrink-0"
+              >
+                {inv.initials}
+              </motion.div>
+              <span className="text-[11px] font-semibold text-[#18352b] flex-1 truncate">{inv.name}</span>
+              <motion.span
+                animate={{ opacity: [0.6, 1, 0.6] }}
+                transition={{ duration: 2, repeat: Infinity, delay: i * 0.3 }}
+                className="text-[9px] text-blue-600 font-medium"
+              >{inv.range}</motion.span>
+            </motion.div>
           ))}
         </div>
       </div>
@@ -86,46 +163,59 @@ export function InvestorPreview() {
   );
 }
 
+/* ── Database ── */
 export function DatabasePreview() {
   return (
-    <div className="w-full aspect-[4/3] bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-      <div className="h-8 bg-gray-50 border-b border-gray-200 flex items-center px-3 gap-1.5">
-        <span className="w-2.5 h-2.5 rounded-full bg-red-400" />
-        <span className="w-2.5 h-2.5 rounded-full bg-yellow-400" />
-        <span className="w-2.5 h-2.5 rounded-full bg-green-400" />
-        <span className="ml-2 text-[10px] text-gray-400 font-medium">Database — Preview</span>
+    <div className="w-full aspect-[4/3] bg-white overflow-hidden flex flex-col relative">
+      <Stickers items={[
+        { emoji: "🗄️", x: 3, y: 4, rot: 8, delay: 0 },
+        { emoji: "🔍", x: 85, y: 4, rot: -12, delay: 0.3 },
+        { emoji: "🏆", x: 50, y: 85, rot: 5, delay: 0.6 },
+      ]} />
+      <div className="flex items-center px-3 py-2 gap-1.5 border-b border-gray-100">
+        <span className="w-2 h-2 rounded-full bg-red-400" />
+        <span className="w-2 h-2 rounded-full bg-yellow-400" />
+        <span className="w-2 h-2 rounded-full bg-green-400" />
       </div>
-      <div className="p-3">
-        <div className="flex items-center gap-2 mb-2">
-          <div className="text-[11px] font-semibold text-gray-700">Programs & Opportunities</div>
-          <div className="ml-auto flex gap-1">
-            <span className="text-[9px] px-1.5 py-0.5 rounded bg-gray-100 text-gray-500">All</span>
-            <span className="text-[9px] px-1.5 py-0.5 rounded bg-green-100 text-green-700 font-medium">Active</span>
-            <span className="text-[9px] px-1.5 py-0.5 rounded bg-gray-100 text-gray-500">Deadline</span>
+      <div className="flex-1 p-3 flex flex-col gap-2">
+        <div className="flex items-center gap-2">
+          <Database size={12} className="text-blue-600" />
+          <div className="flex gap-1 ml-auto">
+            <span className="text-[8px] px-1.5 py-0.5 rounded bg-gray-100 text-gray-500 font-medium">All</span>
+            <motion.span
+              animate={{ opacity: [0.8, 1, 0.8] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+              className="text-[8px] px-1.5 py-0.5 rounded bg-blue-50 text-blue-600 font-medium"
+            >Live</motion.span>
           </div>
         </div>
-        <div className="space-y-1">
+        <div className="flex-1 flex flex-col gap-1">
           {[
-            { name: "SBIR Grant", amount: "$250K", deadline: "Dec 15", tag: "Government" },
-            { name: "YC Accelerator", amount: "$500K", deadline: "Mar 1", tag: "Top Tier" },
-            { name: "Innovation Fund", amount: "$100K", deadline: "Jan 30", tag: "Private" },
-            { name: "Techstars", amount: "$120K", deadline: "Feb 15", tag: "Top Tier" },
-            { name: "EU Horizon", amount: "$2M", deadline: "Apr 1", tag: "Government" },
+            { name: "SBIR Grant", amount: "$250K", tag: "Grant" },
+            { name: "YC Accelerator", amount: "$500K", tag: "Top" },
+            { name: "Innovation Fund", amount: "$100K", tag: "Fund" },
+            { name: "Techstars", amount: "$120K", tag: "Top" },
+            { name: "EU Horizon", amount: "$2M", tag: "Grant" },
           ].map((item, i) => (
-            <div key={i} className="flex items-center gap-2 p-1.5 rounded-lg hover:bg-gray-50">
-              <div className="flex-1 min-w-0">
-                <div className="text-[11px] font-semibold text-gray-800 truncate">{item.name}</div>
-                <div className="flex gap-1.5 items-center">
-                  <span className="text-[9px] text-gray-400">{item.deadline}</span>
-                  <span className={`text-[8px] px-1 py-0.5 rounded font-medium ${
-                    item.tag === "Top Tier" ? "bg-orange-100 text-orange-700" :
-                    item.tag === "Government" ? "bg-blue-100 text-blue-700" :
-                    "bg-gray-100 text-gray-600"
-                  }`}>{item.tag}</span>
-                </div>
+            <motion.div
+              key={item.name}
+              initial={{ opacity: 0, x: -8 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: i * 0.06 }}
+              className="flex items-center gap-2 p-1.5 rounded-lg hover:bg-gray-50 transition-colors flex-1"
+            >
+              <div className="flex-1 min-w-0 flex items-center gap-2">
+                <span className="text-[11px] font-semibold text-[#18352b] truncate">{item.name}</span>
+                <span className={`text-[7px] px-1 py-0.5 rounded font-semibold ${
+                  item.tag === "Top" ? "bg-amber-50 text-amber-600" : "bg-blue-50 text-blue-600"
+                }`}>{item.tag}</span>
               </div>
-              <div className="text-[11px] font-bold text-green-600">{item.amount}</div>
-            </div>
+              <motion.span
+                animate={{ scale: [1, 1.06, 1] }}
+                transition={{ duration: 2, repeat: Infinity, delay: i * 0.2 }}
+                className="text-[10px] font-bold text-green-600"
+              >{item.amount}</motion.span>
+            </motion.div>
           ))}
         </div>
       </div>
@@ -133,176 +223,257 @@ export function DatabasePreview() {
   );
 }
 
+/* ── Leads ── */
 export function LeadsPreview() {
   return (
-    <div className="w-full aspect-[4/3] bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-      <div className="h-8 bg-gray-50 border-b border-gray-200 flex items-center px-3 gap-1.5">
-        <span className="w-2.5 h-2.5 rounded-full bg-red-400" />
-        <span className="w-2.5 h-2.5 rounded-full bg-yellow-400" />
-        <span className="w-2.5 h-2.5 rounded-full bg-green-400" />
-        <span className="ml-2 text-[10px] text-gray-400 font-medium">B2B Leads — Preview</span>
+    <div className="w-full aspect-[4/3] bg-white overflow-hidden flex flex-col relative">
+      <Stickers items={[
+        { emoji: "👥", x: 3, y: 4, rot: -10, delay: 0 },
+        { emoji: "📞", x: 85, y: 4, rot: 12, delay: 0.3 },
+        { emoji: "🎯", x: 50, y: 85, rot: -5, delay: 0.6 },
+      ]} />
+      <div className="flex items-center px-3 py-2 gap-1.5 border-b border-gray-100">
+        <span className="w-2 h-2 rounded-full bg-red-400" />
+        <span className="w-2 h-2 rounded-full bg-yellow-400" />
+        <span className="w-2 h-2 rounded-full bg-green-400" />
       </div>
-      <div className="p-3">
-        <div className="flex items-center justify-between mb-2">
-          <div className="text-[11px] font-semibold text-gray-700">Lead Database</div>
-          <div className="flex items-center gap-1 text-[9px] text-gray-400">
-            <span className="w-1.5 h-1.5 rounded-full bg-green-400" />
-            <span>1,024,831 records</span>
-          </div>
+      <div className="flex-1 p-3 flex flex-col gap-2">
+        <div className="flex items-center justify-between">
+          <Users size={12} className="text-blue-600" />
+          <motion.div
+            animate={{ opacity: [0.6, 1, 0.6] }}
+            transition={{ duration: 2, repeat: Infinity }}
+            className="flex items-center gap-1"
+          >
+            <motion.span
+              animate={{ scale: [1, 1.3, 1] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+              className="w-1.5 h-1.5 rounded-full bg-green-500 inline-block"
+            />
+            <span className="text-[8px] text-gray-400 font-medium">1M+</span>
+          </motion.div>
         </div>
-        <div className="border border-gray-100 rounded-lg overflow-hidden">
-          <div className="bg-gray-50 px-2 py-1 border-b border-gray-100 flex text-[8px] text-gray-500 font-semibold uppercase">
-            <span className="w-[30%]">Name</span>
-            <span className="w-[25%]">Company</span>
-            <span className="w-[25%]">Title</span>
-            <span className="w-[20%]">Industry</span>
+        <div className="flex-1 border border-gray-100 rounded-lg overflow-hidden flex flex-col">
+          <div className="bg-gray-50 px-2 py-1 border-b border-gray-100 flex text-[7px] text-gray-400 font-semibold uppercase">
+            <span className="w-[28%]">Name</span>
+            <span className="w-[24%]">Company</span>
+            <span className="w-[24%]">Role</span>
+            <span className="w-[24%]">Industry</span>
           </div>
-          {[
-            { name: "Sarah Chen", company: "TechFlow Inc", title: "CTO", industry: "SaaS" },
-            { name: "James Wilson", company: "DataPulse", title: "VP Eng", industry: "AI" },
-            { name: "Maria Garcia", company: "CloudBase", title: "CEO", industry: "Infra" },
-            { name: "Alex Kumar", company: "NexGen AI", title: "Founder", industry: "AI" },
-          ].map((lead, i) => (
-            <div key={i} className="px-2 py-1 border-b border-gray-50 last:border-0 flex text-[10px] text-gray-700 hover:bg-gray-50">
-              <span className="w-[30%] truncate font-medium">{lead.name}</span>
-              <span className="w-[25%] truncate text-gray-500">{lead.company}</span>
-              <span className="w-[25%] truncate text-gray-500">{lead.title}</span>
-              <span className="w-[20%] truncate">
-                <span className="text-[8px] px-1 py-0.5 rounded bg-gray-100 text-gray-500">{lead.industry}</span>
-              </span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-export function PromptsPreview() {
-  return (
-    <div className="w-full aspect-[4/3] bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-      <div className="h-8 bg-gray-50 border-b border-gray-200 flex items-center px-3 gap-1.5">
-        <span className="w-2.5 h-2.5 rounded-full bg-red-400" />
-        <span className="w-2.5 h-2.5 rounded-full bg-yellow-400" />
-        <span className="w-2.5 h-2.5 rounded-full bg-green-400" />
-        <span className="ml-2 text-[10px] text-gray-400 font-medium">AI Prompts Library — Preview</span>
-      </div>
-      <div className="p-3">
-        <div className="flex items-center gap-2 mb-2">
-          <div className="text-[11px] font-semibold text-gray-700">Content Prompt Templates</div>
-          <div className="ml-auto text-[9px] text-indigo-600 bg-indigo-50 px-1.5 py-0.5 rounded font-medium">100+ Prompts</div>
-        </div>
-        <div className="space-y-1.5">
-          {[
-            { category: "Thought Leadership", prompt: "Write a post about [topic] with 3 data-backed insights..." },
-            { category: "Framework Posts", prompt: "Create a 'X vs Y' comparison framework showing..." },
-            { category: "Hot Take", prompt: "Share a contrarian view on [trend] backed by..." },
-            { category: "Storytelling", prompt: "Open with a personal failure that taught you..." },
-          ].map((p, i) => (
-            <div key={i} className="p-2 rounded-lg bg-gray-50 border border-gray-100">
-              <div className="flex items-center gap-1.5 mb-0.5">
-                <Zap size={10} className="text-indigo-500" />
-                <span className="text-[9px] font-semibold text-indigo-600 uppercase">{p.category}</span>
-              </div>
-              <div className="text-[10px] text-gray-600 italic">"{p.prompt}"</div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-export function DocumentPreview() {
-  return (
-    <div className="w-full aspect-[4/3] bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-      <div className="h-8 bg-gray-50 border-b border-gray-200 flex items-center px-3 gap-1.5">
-        <span className="w-2.5 h-2.5 rounded-full bg-red-400" />
-        <span className="w-2.5 h-2.5 rounded-full bg-yellow-400" />
-        <span className="w-2.5 h-2.5 rounded-full bg-green-400" />
-        <span className="ml-2 text-[10px] text-gray-400 font-medium">Document — Preview</span>
-      </div>
-      <div className="p-3">
-        <div className="border border-gray-200 rounded-lg overflow-hidden">
-          <div className="bg-gray-50 px-3 py-2 border-b border-gray-200">
-            <div className="h-3 w-48 bg-gray-200 rounded" />
-            <div className="h-2 w-32 bg-gray-200 rounded mt-1" />
-          </div>
-          <div className="p-3 space-y-2">
-            <div className="flex gap-2">
-              <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-0.5" />
-              <div className="flex-1 space-y-1">
-                <div className="h-2 w-full bg-gray-100 rounded" />
-                <div className="h-2 w-3/4 bg-gray-100 rounded" />
-              </div>
-            </div>
-            <div className="flex gap-2">
-              <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-0.5" />
-              <div className="flex-1 space-y-1">
-                <div className="h-2 w-full bg-gray-100 rounded" />
-                <div className="h-2 w-2/3 bg-gray-100 rounded" />
-              </div>
-            </div>
-            <div className="flex gap-2">
-              <div className="w-1.5 h-1.5 rounded-full bg-amber-500 mt-0.5" />
-              <div className="flex-1 space-y-1">
-                <div className="h-2 w-full bg-gray-100 rounded" />
-                <div className="h-2 w-4/5 bg-gray-100 rounded" />
-              </div>
-            </div>
-            <div className="flex gap-2">
-              <div className="w-1.5 h-1.5 rounded-full bg-purple-500 mt-0.5" />
-              <div className="flex-1 space-y-1">
-                <div className="h-2 w-full bg-gray-100 rounded" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-export function RealEstatePreview() {
-  return (
-    <div className="w-full aspect-[4/3] bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-      <div className="h-8 bg-gray-50 border-b border-gray-200 flex items-center px-3 gap-1.5">
-        <span className="w-2.5 h-2.5 rounded-full bg-red-400" />
-        <span className="w-2.5 h-2.5 rounded-full bg-yellow-400" />
-        <span className="w-2.5 h-2.5 rounded-full bg-green-400" />
-        <span className="ml-2 text-[10px] text-gray-400 font-medium">Real Estate — Preview</span>
-      </div>
-      <div className="p-3 space-y-2">
-        <div className="flex gap-2">
-          <div className="flex-1 bg-rose-50 rounded-lg p-2 border border-rose-100">
-            <div className="text-[9px] text-rose-600 font-semibold uppercase">Property Value</div>
-            <div className="text-base font-bold text-[#18352b]">$425K</div>
-            <div className="text-[9px] text-green-600">↑ +8.2% YoY</div>
-          </div>
-          <div className="flex-1 bg-blue-50 rounded-lg p-2 border border-blue-100">
-            <div className="text-[9px] text-blue-600 font-semibold uppercase">Cash Flow</div>
-            <div className="text-base font-bold text-[#18352b]">+$1,850/mo</div>
-            <div className="text-[9px] text-green-600">Cap Rate: 5.2%</div>
-          </div>
-        </div>
-        <div className="bg-white rounded-lg border border-gray-100 p-2.5">
-          <div className="text-[9px] font-semibold text-gray-500 uppercase mb-1">Investment Scorecard</div>
-          <div className="space-y-1">
+          <div className="flex-1 flex flex-col">
             {[
-              { label: "ROI Potential", value: 85 },
-              { label: "Location Score", value: 92 },
-              { label: "Risk Assessment", value: 72 },
-            ].map((s, i) => (
-              <div key={i} className="flex items-center gap-2">
-                <span className="text-[9px] text-gray-500 w-24">{s.label}</span>
-                <div className="flex-1 h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                  <div className="h-full bg-blue-500 rounded-full" style={{ width: `${s.value}%` }} />
-                </div>
-                <span className="text-[9px] font-medium text-gray-700 w-6 text-right">{s.value}%</span>
-              </div>
+              { name: "Sarah Chen", company: "TechFlow", role: "CTO", ind: "SaaS" },
+              { name: "James Wilson", company: "DataPulse", role: "VP Eng", ind: "AI" },
+              { name: "Maria Garcia", company: "CloudBase", role: "CEO", ind: "Infra" },
+              { name: "Alex Kumar", company: "NexGen", role: "Founder", ind: "AI" },
+            ].map((lead, i) => (
+              <motion.div
+                key={lead.name}
+                initial={{ opacity: 0, x: -5 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: i * 0.07 }}
+                className="flex items-center px-2 py-1 border-b border-gray-50 last:border-0 text-[9px] text-gray-600 hover:bg-gray-50 transition-colors flex-1"
+              >
+                <span className="w-[28%] truncate font-medium">{lead.name}</span>
+                <span className="w-[24%] truncate text-gray-400">{lead.company}</span>
+                <span className="w-[24%] truncate text-gray-400">{lead.role}</span>
+                <span className="w-[24%] truncate">
+                  <span className="text-[7px] px-1 py-0.5 rounded bg-gray-100 text-gray-500 font-medium">{lead.ind}</span>
+                </span>
+              </motion.div>
             ))}
           </div>
         </div>
+      </div>
+    </div>
+  );
+}
+
+/* ── Prompts ── */
+export function PromptsPreview() {
+  return (
+    <div className="w-full aspect-[4/3] bg-white overflow-hidden flex flex-col relative">
+      <Stickers items={[
+        { emoji: "🤖", x: 3, y: 4, rot: -10, delay: 0 },
+        { emoji: "✨", x: 85, y: 4, rot: 15, delay: 0.3 },
+        { emoji: "💡", x: 50, y: 85, rot: -8, delay: 0.6 },
+      ]} />
+      <div className="flex items-center px-3 py-2 gap-1.5 border-b border-gray-100">
+        <span className="w-2 h-2 rounded-full bg-red-400" />
+        <span className="w-2 h-2 rounded-full bg-yellow-400" />
+        <span className="w-2 h-2 rounded-full bg-green-400" />
+      </div>
+      <div className="flex-1 p-3 flex flex-col gap-2">
+        <div className="flex items-center justify-between">
+          <Sparkles size={12} className="text-blue-600" />
+          <motion.span
+            animate={{ opacity: [0.7, 1, 0.7] }}
+            transition={{ duration: 2, repeat: Infinity }}
+            className="text-[8px] text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded font-semibold"
+          >100+</motion.span>
+        </div>
+        <div className="flex-1 flex flex-col gap-1.5">
+          {[
+            { cat: "Thought Leadership", color: "text-blue-600" },
+            { cat: "Framework Posts", color: "text-green-600" },
+            { cat: "Hot Take", color: "text-amber-600" },
+            { cat: "Storytelling", color: "text-blue-500" },
+          ].map((p, i) => (
+            <motion.div
+              key={p.cat}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.08 }}
+              className="flex items-center gap-2 p-2 rounded-lg bg-gray-50 border border-gray-100 hover:border-gray-200 transition-colors flex-1"
+            >
+              <motion.div
+                animate={{ rotate: [0, 12, -12, 0] }}
+                transition={{ duration: 3, repeat: Infinity, delay: i * 0.5 }}
+              >
+                <Zap size={12} className={p.color} />
+              </motion.div>
+              <span className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider">{p.cat}</span>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ── Document ── */
+export function DocumentPreview() {
+  return (
+    <div className="w-full aspect-[4/3] bg-white overflow-hidden flex flex-col relative">
+      <Stickers items={[
+        { emoji: "📄", x: 3, y: 4, rot: -10, delay: 0 },
+        { emoji: "📝", x: 85, y: 4, rot: 12, delay: 0.3 },
+        { emoji: "✅", x: 50, y: 85, rot: -5, delay: 0.6 },
+      ]} />
+      <div className="flex items-center px-3 py-2 gap-1.5 border-b border-gray-100">
+        <span className="w-2 h-2 rounded-full bg-red-400" />
+        <span className="w-2 h-2 rounded-full bg-yellow-400" />
+        <span className="w-2 h-2 rounded-full bg-green-400" />
+      </div>
+      <div className="flex-1 p-3 flex flex-col">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+          className="flex-1 border border-gray-100 rounded-lg overflow-hidden flex flex-col"
+        >
+          <div className="bg-gray-50 px-3 py-2 border-b border-gray-100">
+            <motion.div
+              animate={{ width: ["60%", "50%", "60%"] }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+              className="h-3 bg-gray-200 rounded"
+            />
+            <motion.div
+              animate={{ width: ["40%", "35%", "40%"] }}
+              transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+              className="h-2 bg-gray-100 rounded mt-1.5"
+            />
+          </div>
+          <div className="flex-1 p-3 flex flex-col gap-2">
+            {[
+              { color: "bg-blue-400" },
+              { color: "bg-green-400" },
+              { color: "bg-amber-400" },
+              { color: "bg-blue-300" },
+            ].map((item, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, x: -8 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: i * 0.1 }}
+                className="flex items-center gap-2 flex-1"
+              >
+                <motion.div
+                  animate={{ scale: [1, 1.3, 1] }}
+                  transition={{ duration: 2, repeat: Infinity, delay: i * 0.4 }}
+                  className={`w-2 h-2 rounded-full ${item.color} flex-shrink-0`}
+                />
+                <div className="flex-1 flex flex-col gap-1 justify-center">
+                  <div className="h-2 bg-gray-100 rounded" style={{ width: `${75 - i * 5}%` }} />
+                  <div className="h-1.5 bg-gray-50 rounded" style={{ width: `${55 - i * 5}%` }} />
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      </div>
+    </div>
+  );
+}
+
+/* ── Real Estate ── */
+export function RealEstatePreview() {
+  return (
+    <div className="w-full aspect-[4/3] bg-white overflow-hidden flex flex-col relative">
+      <Stickers items={[
+        { emoji: "🏠", x: 3, y: 4, rot: -12, delay: 0 },
+        { emoji: "🔑", x: 85, y: 4, rot: 10, delay: 0.3 },
+        { emoji: "💰", x: 50, y: 85, rot: -8, delay: 0.6 },
+      ]} />
+      <div className="flex items-center px-3 py-2 gap-1.5 border-b border-gray-100">
+        <span className="w-2 h-2 rounded-full bg-red-400" />
+        <span className="w-2 h-2 rounded-full bg-yellow-400" />
+        <span className="w-2 h-2 rounded-full bg-green-400" />
+      </div>
+      <div className="flex-1 p-3 flex flex-col gap-3">
+        <div className="flex gap-2 flex-[2]">
+          {[
+            { value: "$425K", label: "Value", change: "+8.2%" },
+            { value: "+$1.8K", label: "Cash Flow", change: "5.2% Cap" },
+          ].map((card, i) => (
+            <motion.div
+              key={card.label}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.1 }}
+              className="flex-1 bg-blue-50/60 rounded-xl border border-blue-100/60 flex flex-col items-center justify-center p-2"
+            >
+              <motion.span
+                initial={{ scale: 0.8 }}
+                animate={{ scale: 1 }}
+                transition={{ delay: i * 0.15 + 0.2, type: "spring", stiffness: 120 }}
+                className="text-lg font-bold text-[#18352b]"
+              >
+                {card.value}
+              </motion.span>
+              <span className="text-[8px] text-green-600 font-medium mt-0.5">{card.change}</span>
+            </motion.div>
+          ))}
+        </div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+          className="flex-[3] bg-gray-50/80 rounded-xl border border-gray-100 p-3 flex flex-col gap-2 justify-center"
+        >
+          {[
+            { label: "ROI", value: 85 },
+            { label: "Location", value: 92 },
+            { label: "Risk", value: 72 },
+          ].map((s, i) => (
+            <div key={s.label} className="flex items-center gap-2">
+              <span className="text-[8px] text-gray-400 font-medium w-10">{s.label}</span>
+              <div className="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{ width: `${s.value}%` }}
+                  transition={{ delay: i * 0.15 + 0.3, duration: 0.8, ease: "easeOut" }}
+                  className="h-full bg-gradient-to-r from-blue-400 to-blue-300 rounded-full"
+                />
+              </div>
+              <motion.span
+                animate={{ opacity: [0.7, 1, 0.7] }}
+                transition={{ duration: 2, repeat: Infinity, delay: i * 0.3 }}
+                className="text-[9px] font-medium text-gray-500 w-7 text-right"
+              >{s.value}%</motion.span>
+            </div>
+          ))}
+        </motion.div>
       </div>
     </div>
   );

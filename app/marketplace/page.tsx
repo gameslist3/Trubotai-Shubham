@@ -357,11 +357,11 @@ export default function MarketplacePage() {
 
         {/* ── Full-width 50% OFF Ribbon (both edges curve upward in same direction) ── */}
         <div
-          className="relative w-full py-6 md:py-7 overflow-hidden mb-8 md:mb-10"
+          className="relative w-full py-3 md:py-3.5 overflow-hidden mb-8 md:mb-10"
           style={{
             clipPath: `polygon(
-              0% 10%, 20% 6%, 40% 4%, 50% 3%, 60% 4%, 80% 6%, 100% 10%,
-              100% 92%, 80% 89%, 60% 87%, 50% 86%, 40% 87%, 20% 89%, 0% 92%
+              0% 5%, 20% 3%, 40% 2%, 50% 1.5%, 60% 2%, 80% 3%, 100% 5%,
+              100% 96%, 80% 94.5%, 60% 93%, 50% 92.5%, 40% 93%, 20% 94.5%, 0% 96%
             )`
           }}
         >
@@ -417,28 +417,57 @@ export default function MarketplacePage() {
             />
           </div>
 
-          {/* Content — centered */}
-          <div className="relative mx-auto w-full max-w-[1400px] px-6 md:px-8 lg:px-12 py-1">
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-5">
-              {/* 50% OFF badge with pulse */}
-              <motion.span
-                animate={{ scale: [1, 1.06, 1] }}
+          {/* Content — centered — improved visibility */}
+          <div className="relative mx-auto w-full max-w-[1400px] px-6 md:px-8 lg:px-12">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-6">
+              {/* ── Glowing 50% OFF Badge ── */}
+              <motion.div
+                animate={{ scale: [1, 1.04, 1] }}
                 transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                className="inline-flex items-center gap-1.5 bg-white/20 backdrop-blur-sm text-white px-3.5 py-1 rounded-md text-xs md:text-sm font-bold tracking-wide ring-1 ring-white/20 shadow-lg"
+                className="relative"
               >
-                <svg className="w-3.5 h-3.5 text-yellow-300" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
-                50% OFF
-              </motion.span>
+                {/* Neon glow behind badge */}
+                <div className="absolute -inset-2 bg-gradient-to-r from-yellow-400/20 via-amber-400/20 to-orange-400/20 rounded-xl blur-lg" />
+                <div className="relative inline-flex items-center gap-1.5 bg-gradient-to-br from-amber-400 via-yellow-400 to-orange-500 px-3.5 py-1.5 rounded-lg text-xs md:text-sm font-extrabold tracking-wide shadow-[0_0_20px_rgba(251,191,36,0.3)] ring-1 ring-yellow-300/40">
+                  <svg className="w-4 h-4 text-[#8F4A0E]" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+                  <span className="text-[#8F4A0E] [text-shadow:0_2px_6px_rgba(0,0,0,0.4)]">50%</span>
+                  <span className="text-[10px] md:text-xs font-bold text-[#8F4A0E] [text-shadow:0_2px_6px_rgba(0,0,0,0.4)]">OFF</span>
+                </div>
+              </motion.div>
 
-              <span className="text-white/95 font-semibold text-xs md:text-sm tracking-wide">
-                All Products
+              {/* ── ALL PRODUCTS ── */}
+              <span className="text-white font-extrabold text-sm md:text-lg tracking-[0.08em] [text-shadow:0_2px_8px_rgba(0,0,0,0.4)]">
+                ALL PRODUCTS
               </span>
 
-              <span className="hidden sm:block w-1 h-1 rounded-full bg-white/30" />
+              {/* ── Premium Separator ── */}
+              <div className="hidden sm:flex items-center gap-2">
+                <div className="w-8 h-px bg-gradient-to-r from-transparent via-white/60 to-transparent" />
+                <div className="w-1.5 h-1.5 rounded-full bg-white/60 shadow-[0_0_8px_rgba(255,255,255,0.5)]" />
+                <div className="w-8 h-px bg-gradient-to-r from-transparent via-white/60 to-transparent" />
+              </div>
 
-              <span className="text-white/70 text-[11px] md:text-xs font-medium">
-                Limited Time Offer!
-              </span>
+              {/* ── LIMITED TIME OFFER ── */}
+              <motion.div
+                animate={{ opacity: [0.9, 1, 0.9] }}
+                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+                className="relative"
+              >
+                {/* Soft amber glow behind text */}
+                <div className="absolute -inset-3 bg-amber-400/15 rounded-full blur-md" />
+                <div className="relative flex items-center gap-2.5 text-white text-xs md:text-sm font-bold uppercase tracking-wider [text-shadow:0_1px_6px_rgba(0,0,0,0.4)]">
+                  <svg className="w-4 h-4 text-amber-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12 6 12 12 16 14"/>
+                  </svg>
+                  <span className="text-white font-extrabold tracking-[0.12em]">
+                    Limited Time Offer
+                  </span>
+                  <svg className="w-4 h-4 text-amber-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                  </svg>
+                </div>
+              </motion.div>
             </div>
           </div>
         </div>
@@ -471,13 +500,13 @@ export default function MarketplacePage() {
               )}
 
               {currentProductSlug && products[currentProductSlug] ? (
-                <div className="max-w-[1200px] mx-auto">
+                <div>
                   {/* Breadcrumb */}
                   <div className="flex items-center gap-2 text-xs text-gray-400 mb-6">
                     <span className="text-gray-600 font-medium">
                       {filters.find((f) => f.value === activeFilter)?.label}
                     </span>
-                    <span>/</span>
+                    <span className="text-gray-300">/</span>
                     <span className="text-[#18352b] font-medium">{products[currentProductSlug].name}</span>
                   </div>
                   <ProductDetailView product={products[currentProductSlug]} slug={currentProductSlug} />
@@ -488,7 +517,7 @@ export default function MarketplacePage() {
             </div>
           ) : (
             /* ── "All" filter: Show card grid ── */
-            <>
+            <div>
               {/* ── Cards Grid ── */}
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredCategories.map((cat, index) => {
@@ -577,9 +606,12 @@ export default function MarketplacePage() {
                           {/* Bottom: Price + Buy Now */}
                           <div className="flex items-center justify-between mt-auto pt-5 border-t border-gray-100">
                             <div className="flex flex-col">
-                              <span className="text-sm text-gray-400 line-through">
-                                ${parseInt(cat.price) * 2}
-                              </span>
+                              <div className="flex items-center gap-2">
+                                <span className="text-sm text-gray-400 line-through">
+                                  ${parseInt(cat.price) * 2}
+                                </span>
+                                <span className="inline-flex items-center bg-green-100 text-green-700 text-[9px] font-bold px-1.5 py-0.5 rounded">50% OFF</span>
+                              </div>
                               <span className="text-xl md:text-2xl font-bold text-blue-600">
                                 ${cat.price}
                               </span>
@@ -608,7 +640,7 @@ export default function MarketplacePage() {
                   No products match this category.
                 </p>
               )}
-            </>
+            </div>
           )}
         </div>
       </section>
