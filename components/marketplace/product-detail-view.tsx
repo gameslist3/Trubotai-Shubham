@@ -1,38 +1,34 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowRight, CheckCircle, Star,
-  ChevronDown, Zap, Clock, Download, Info, Shield
+  Zap, Clock, Download, Info, Shield
 } from "lucide-react";
 import { ProductData } from "@/lib/product-data";
 import { ProductPreview } from "@/components/marketplace/product-preview";
 
+// ── Product image mapping for filtered detail screens ──
+const productImages: Record<string, string> = {
+  "finance-templates": "/Finance Database.png",
+  "investor-database": "/Investor Database.png",
+  "grant-database": "/Grant Database.png",
+  "ai-linkedin-prompts": "/Al Linkedln Prompts Database.png",
+  "architecture-prd": "/Architecture Database.png",
+  "real-estate": "/Real Estate Database.png",
+};
+
 // ── Section Component ──
 
-function ExpandableSection({ title, children, defaultOpen = false }: { title: string; children: React.ReactNode; defaultOpen?: boolean }) {
-  const [open, setOpen] = useState(defaultOpen);
+function ExpandableSection({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="border-b border-gray-100 last:border-0">
-      <button
-        onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between py-3 text-left"
-      >
+    <div>
+      <div className="pb-1 pt-3">
         <span className="text-sm font-semibold text-[#18352b]">{title}</span>
-        <motion.div animate={{ rotate: open ? 180 : 0 }} transition={{ duration: 0.2 }}>
-          <ChevronDown size={16} className="text-gray-400" />
-        </motion.div>
-      </button>
-      <motion.div
-        initial={false}
-        animate={{ height: open ? "auto" : 0, opacity: open ? 1 : 0 }}
-        transition={{ duration: 0.25, ease: "easeInOut" }}
-        className="overflow-hidden"
-      >
-        <div className="pb-3">{children}</div>
-      </motion.div>
+      </div>
+      <div className="pb-3">{children}</div>
     </div>
   );
 }
@@ -52,11 +48,23 @@ export default function ProductDetailView({ product, slug }: ProductDetailViewPr
   return (
     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
       <div className="grid lg:grid-cols-2 gap-6 md:gap-8 lg:gap-10">
-        {/* ══════ LEFT: Product Preview — clean card matching page theme ══════ */}
+        {/* ══════ LEFT: Product Preview / Image ══════ */}
         <div className="order-2 lg:order-1">
           <div className="sticky top-28">
-            <div className="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden">
-              <ProductPreview type={product.previewType} />
+            <div className="rounded-2xl overflow-hidden">
+              {productImages[slug] ? (
+                <div className="relative w-full aspect-[4/3]">
+                  <Image
+                    src={productImages[slug]}
+                    alt={product.name}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                  />
+                </div>
+              ) : (
+                <ProductPreview type={product.previewType} />
+              )}
             </div>
           </div>
         </div>
@@ -71,9 +79,20 @@ export default function ProductDetailView({ product, slug }: ProductDetailViewPr
             {/* ── Description ── */}
             <p className="text-sm text-gray-600 leading-relaxed mb-5">{product.description}</p>
 
-            {/* ── Expandable Sections ── */}
+            {/* ── Product Sections ── */}
             <div className="border-t border-gray-100 divide-y divide-gray-100">
-              <ExpandableSection title="What's Included" defaultOpen={true}>
+              <ExpandableSection title="Key Features">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+                  {product.features.map((feat) => (
+                    <div key={feat} className="flex items-center gap-2 text-sm text-gray-600">
+                      <Star size={12} className="text-blue-500 flex-shrink-0" />
+                      {feat}
+                    </div>
+                  ))}
+                </div>
+              </ExpandableSection>
+
+              <ExpandableSection title="What's Included">
                 <ul className="space-y-1.5">
                   {product.whatsIncluded.map((item) => (
                     <li key={item} className="flex items-start gap-2.5 text-sm text-gray-600">
@@ -89,17 +108,6 @@ export default function ProductDetailView({ product, slug }: ProductDetailViewPr
                 )}
               </ExpandableSection>
 
-              <ExpandableSection title="Key Features">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
-                  {product.features.map((feat) => (
-                    <div key={feat} className="flex items-center gap-2 text-sm text-gray-600">
-                      <Star size={12} className="text-blue-500 flex-shrink-0" />
-                      {feat}
-                    </div>
-                  ))}
-                </div>
-              </ExpandableSection>
-
               <ExpandableSection title="Who It's For">
                 <ul className="space-y-1.5">
                   {product.useCases.map((useCase) => (
@@ -111,7 +119,7 @@ export default function ProductDetailView({ product, slug }: ProductDetailViewPr
                 </ul>
               </ExpandableSection>
 
-              <ExpandableSection title="Deliverables">
+              <ExpandableSection title="templetes you recives">
                 <div className="flex flex-wrap gap-2">
                   {product.deliverables.map((d) => (
                     <span key={d} className="px-2.5 py-1 rounded-lg bg-gray-50 border border-gray-200 text-sm text-gray-600">
