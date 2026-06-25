@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Calculator, Briefcase, Database, Rocket, Users, Sparkles, Building2, FileText, Home, ArrowRight, Info, X } from "lucide-react";
+import { Calculator, Briefcase, Database, Rocket, Users, Sparkles, Building2, FileText, Home, Crosshair, Shield, TrendingUp, Handshake, Globe, Mail, Calendar, Send, Gift, ArrowRight, Info, X } from "lucide-react";
 import { getProductsByFilter, products, filterToSlugs } from "@/lib/product-data";
 import ProductDetailView from "@/components/marketplace/product-detail-view";
 
@@ -15,7 +15,14 @@ const filters = [
   { label: "Databases", value: "database" },
   { label: "Templates", value: "template" },
   { label: "AI", value: "ai" },
+  { label: "GTM", value: "gtm" },
+  { label: "NDA", value: "nda" },
+  { label: "M&A", value: "ma" },
+  { label: "Partners", value: "channel" },
+  { label: "Website", value: "website" },
   { label: "Real Estate", value: "real-estate" },
+  { label: "Leads (Bulk)", value: "leads-big" },
+  { label: "Bundle", value: "bundle" },
 ];
 
 // ── Per-product expanded details ──
@@ -179,6 +186,101 @@ const productDetails: Record<string, ProductDetails> = {
       "Instant download, lifetime access",
     ],
   },
+  "GTM and Strategy": {
+    longDesc:
+      "These are not MBA slide decks or theoretical frameworks. Every template in this pack is built around how early-stage companies actually think about go-to-market — from zero to first revenue, from first revenue to scale. That means flexible frameworks you adapt to your specific business model, step-by-step guidance built into every section, decision trees to guide your channel and motion choices, and formats ready for investor meetings, board reviews, and team planning sessions.",
+    builtFor: [
+      "First-time founders — Turn your product into a repeatable revenue motion with structured guidance",
+      "Startup operators — Prepare for Series A with investor-ready GTM documentation",
+      "Product & growth leaders — Plan structured market entry with decision trees and channel frameworks",
+      "Consultants & advisors — Deliver consistent, client-ready GTM deliverables",
+      "Accelerator mentors — Provide standardised strategy tools across portfolio companies",
+    ],
+    whatYouGet: [
+      "A written, structured GTM strategy for your business",
+      "A clear ICP you and your team can align on",
+      "A channel and motion plan you can actually execute",
+      "A launch sequence with accountability built in",
+      "A metrics framework to track what moves the needle",
+      "Editable templates for PowerPoint, Google Slides, Word, and Notion",
+    ],
+  },
+  "NDA and Agreements": {
+    longDesc:
+      "Complete NDA and confidentiality management system — agreements, workflows, and supporting documentation all in one pack. LLP-specific structure designed around the legal and operational context of a Limited Liability Partnership. Includes AI-powered prompts to draft, customise, and review your agreements faster than ever.",
+    builtFor: [
+      "LLP founders — Protect confidential information before onboarding clients, employees, or contractors",
+      "Startup operators — Protect proprietary technology, business models, and IP from day one",
+      "Consultants — Share sensitive client information securely across engagements",
+      "Tech & SaaS companies — License software, APIs, and proprietary data with proper NDA coverage",
+      "Agencies — Work with client data, briefs, and commercially sensitive information",
+    ],
+    whatYouGet: [
+      "A legally structured NDA and confidentiality system for your LLP",
+      "AI-powered tools to draft and review agreements faster",
+      "A live dashboard to track every agreement across your business",
+      "Internal SOPs your team can follow consistently",
+      "Licensing templates to protect your IP in commercial deals",
+      "Complete documentation and audit trail for every confidentiality arrangement",
+    ],
+  },
+  "M&A Strategy": {
+    longDesc:
+      "End-to-end M&A toolkit — from target identification through valuation, due diligence, and deal structuring, all in one pack. Strategy and execution in one place with built-in valuation metrics covering the key methodologies used in real transactions.",
+    builtFor: [
+      "Founders & CEOs — Evaluate your first acquisition or prepare to be acquired",
+      "Corporate development teams — Identify, score, and prioritise acquisition targets",
+      "PE & venture investors — Evaluate new equity deals and portfolio acquisitions",
+      "CFOs — Build internal M&A capability without external advisors",
+      "Business brokers & M&A advisors — Deliver professional client-facing deal documentation",
+    ],
+    whatYouGet: [
+      "A clear, written acquisition strategy before you approach a single target",
+      "A consistent framework for evaluating every deal against the same criteria",
+      "A structured pipeline of acquisition targets with scoring and prioritisation",
+      "A defensible valuation range built on multiple methodologies",
+      "The right questions to ask any new equity partner before you sign anything",
+      "A professional, repeatable M&A process you can use across every deal",
+    ],
+  },
+  "Channel Partner Pack": {
+    longDesc:
+      "Complete channel partner programme in a box — from partner agreement and onboarding to deal registration and commission tracking, all in one pack. Covers 4 partner models (Referral, Reseller, MSP, System Integrator) with a 3-tier structure (Silver, Gold, Platinum) with commissions from 15% to 30%.",
+    builtFor: [
+      "Independent consultants — Refer clients and earn 10–15% commission without heavy sales commitment",
+      "VARs & resellers — Sell and fulfil AI solutions with 20–25% reseller margin",
+      "MSPs — Add recurring revenue by bundling AI with existing managed services",
+      "System integrators — Embed AI into enterprise digital transformation projects",
+      "Digital agencies — Scale client delivery without adding headcount through AI automation",
+    ],
+    whatYouGet: [
+      "A complete, professional channel partner programme ready to launch",
+      "Frameworks for every partner type from referral through to strategic SI",
+      "Commission structures your partners will understand and be motivated by",
+      "A deal registration process that protects your revenue and your partners' pipeline",
+      "Proven GTM playbooks for Enterprise, SMB, and Agency segments",
+      "A 90-day onboarding plan that gets new partners generating pipeline fast",
+    ],
+  },
+  "Website Content": {
+    longDesc:
+      "Complete website content system with every core page of an AI startup website written and structured. Includes 15 ready-to-use content documents — homepage, 8 product pages, about, contact, CTA library, website structure guide, and a reusable template pack.",
+    builtFor: [
+      "AI startup founders — Launch a professional website without weeks of content writing",
+      "SaaS product teams — Get structured product page copy fast",
+      "Marketing managers — Work from a proven content architecture",
+      "Web designers — Get ready-to-implement copy alongside design work",
+      "Digital agencies — Use a reusable content framework for faster delivery",
+    ],
+    whatYouGet: [
+      "A complete, professional AI startup website — written and ready to build",
+      "8 fully written product pages covering every major AI product category",
+      "A CTA library you can drop into any page immediately",
+      "A reusable template framework for every future page you need",
+      "SEO guidance and implementation recommendations built in",
+      "A master compiled document for your development team to hand off directly",
+    ],
+  },
 };
 
 // ── Shared tooltip content renderer ──
@@ -269,7 +371,20 @@ const categories: Category[] = [
   { name: "AI LinkedIn Prompts Pack", tag: "ai", icon: Sparkles, price: "49", href: "/marketplace/ai-linkedin-prompts", bg: "bg-indigo-100", iconColor: "text-indigo-600", desc: "AI-powered prompt templates for LinkedIn content creation. Generate engaging posts, comments, and outreach messages that get results." },
   { name: "Architecture PRD", tag: "template", icon: Building2, price: "49", href: "/marketplace/architecture-prd", bg: "bg-teal-100", iconColor: "text-teal-600", desc: "Comprehensive architecture documentation templates for system design. Define constraints, trade-offs, and technical decisions with clarity." },
   { name: "Product PRDs", tag: "template", icon: FileText, price: "39", href: "/marketplace/product-prds", bg: "bg-amber-100", iconColor: "text-amber-600", desc: "Ready-to-use product requirement document templates. Streamline product planning, align stakeholders, and ship with confidence." },
-  { name: "Real Estate", tag: "real-estate", icon: Home, price: "49", href: "/marketplace/real-estate", bg: "bg-rose-100", iconColor: "text-rose-600", desc: "Complete real estate analysis templates and property calculators. Evaluate investments, manage portfolios, and close deals faster." },
+  { name: "GTM and Strategy", tag: "gtm", icon: Crosshair, price: "199", href: "/marketplace/gtm-strategy", bg: "bg-sky-100", iconColor: "text-sky-600", desc: "Structured go-to-market frameworks and strategy templates. Move from idea to market with clarity, confidence, and a plan that scales." },
+  { name: "Pitch Deck Samples", tag: "template", icon: Send, price: "99", href: "/marketplace/pitch-deck-samples", bg: "bg-orange-100", iconColor: "text-orange-600", desc: "Professional pitch deck templates that help you tell your story and win investors." },
+  { name: "Proposals Docs", tag: "template", icon: FileText, price: "99", href: "/marketplace/proposals-docs", bg: "bg-blue-100", iconColor: "text-blue-600", desc: "Professional proposal and business plan templates for grant applications and client pitches." },
+  { name: "Sample PRD", tag: "template", icon: FileText, price: "99", href: "/marketplace/sample-prd", bg: "bg-amber-100", iconColor: "text-amber-600", desc: "Ready-to-use PRD samples and templates to help product teams define, scope, and communicate requirements." },
+  { name: "Project Timeline Templates", tag: "template", icon: Calendar, price: "49", href: "/marketplace/project-timeline-templates", bg: "bg-teal-100", iconColor: "text-teal-600", desc: "Professional project timeline and Gantt chart templates to plan, track, and deliver projects on time." },
+  { name: "Cold Email Templates", tag: "template", icon: Mail, price: "49", href: "/marketplace/cold-email-templates", bg: "bg-blue-100", iconColor: "text-blue-600", desc: "Proven cold email templates that get replies, book meetings, and close deals." },
+  { name: "NDA and Agreements", tag: "nda", icon: Shield, price: "99", href: "/marketplace/nda-pack", bg: "bg-slate-100", iconColor: "text-slate-600", desc: "Professional NDA templates, AI prompts, dashboards, documentation, and SOP tools for founders and LLPs." },
+  { name: "M&A Strategy", tag: "ma", icon: TrendingUp, price: "199", href: "/marketplace/ma-strategy", bg: "bg-emerald-100", iconColor: "text-emerald-600", desc: "Professional M&A strategy frameworks, analysis tools, valuation templates, and deal documentation." },
+  { name: "Channel Partner Pack", tag: "channel", icon: Handshake, price: "99", href: "/marketplace/channel-partners", bg: "bg-violet-100", iconColor: "text-violet-600", desc: "Everything to launch, manage, and scale a channel partner programme — templates, playbooks, and tools." },
+  { name: "Website Content", tag: "website", icon: Globe, price: "199", href: "/marketplace/website-content", bg: "bg-cyan-100", iconColor: "text-cyan-600", desc: "15 professionally written content documents covering every page of an AI startup website." },
+  { name: "Real Estate", tag: "real-estate", icon: Home, price: "199", href: "/marketplace/real-estate", bg: "bg-rose-100", iconColor: "text-rose-600", desc: "Professional-grade templates, trackers, and workflows for landlords, property investors, and real estate pros." },
+  { name: "150M Leads", tag: "leads-big", icon: Database, price: "1999", href: "/marketplace/150m-leads", bg: "bg-purple-100", iconColor: "text-purple-600", desc: "150 million verified B2B leads — the ultimate dataset for enterprise-scale outreach campaigns." },
+  { name: "390M Leads", tag: "leads-big", icon: Database, price: "3999", href: "/marketplace/390m-leads", bg: "bg-indigo-100", iconColor: "text-indigo-600", desc: "390 million verified B2B leads — the most comprehensive B2B dataset available." },
+  { name: "All Assets Bundle", tag: "bundle", icon: Gift, price: "100", href: "/marketplace/all-assets-bundle", bg: "bg-yellow-100", iconColor: "text-yellow-600", desc: "Every digital asset in our marketplace at a massive discount. Get everything in one bundle." },
 ];
 
 // ── Component ──

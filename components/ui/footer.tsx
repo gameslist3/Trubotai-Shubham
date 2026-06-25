@@ -17,6 +17,11 @@ const footerLinks = {
     { href: "/marketplace/1m-leads", label: "B2B Leads" },
     { href: "/marketplace/grant-database", label: "Grant Database" },
     { href: "/marketplace/prd-bundle", label: "PRD Bundle" },
+    { href: "/marketplace/gtm-strategy", label: "GTM and Strategy" },
+    { href: "/marketplace/nda-pack", label: "NDA Pack" },
+    { href: "/marketplace/ma-strategy", label: "M&A Strategy" },
+    { href: "/marketplace/channel-partners", label: "Channel Partners" },
+    { href: "/marketplace/website-content", label: "Website Content" },
   ],
   Company: [
     { href: "#", label: "About Us" },

@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -8,7 +7,6 @@ import {
   Zap, Clock, Download, Info, Shield
 } from "lucide-react";
 import { ProductData } from "@/lib/product-data";
-import { ProductPreview } from "@/components/marketplace/product-preview";
 
 // ── Product image mapping for filtered detail screens ──
 const productImages: Record<string, string> = {
@@ -44,18 +42,19 @@ interface ProductDetailViewProps {
 
 export default function ProductDetailView({ product, slug }: ProductDetailViewProps) {
   const originalPrice = product.price * 2;
+  const imageSrc = productImages[slug];
 
   return (
-    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+    <div>
       <div className="grid lg:grid-cols-2 gap-6 md:gap-8 lg:gap-10">
-        {/* ══════ LEFT: Product Preview / Image ══════ */}
+        {/* ══════ LEFT: Plain placeholder or image (user will add images later) ══════ */}
         <div className="order-2 lg:order-1">
           <div className="sticky top-28">
             <div className="rounded-2xl overflow-hidden">
-              {productImages[slug] ? (
+              {imageSrc ? (
                 <div className="relative w-full aspect-[4/3]">
                   <Image
-                    src={productImages[slug]}
+                    src={imageSrc}
                     alt={product.name}
                     fill
                     className="object-cover"
@@ -63,7 +62,12 @@ export default function ProductDetailView({ product, slug }: ProductDetailViewPr
                   />
                 </div>
               ) : (
-                <ProductPreview type={product.previewType} />
+                <div className={`w-full aspect-[4/3] ${product.bgColor} flex items-center justify-center`}>
+                  <div className="text-center">
+                    <product.icon size={64} className={`${product.iconColor} mx-auto mb-3 opacity-40`} />
+                    <p className={`text-sm font-medium ${product.iconColor} opacity-30`}>{product.name}</p>
+                  </div>
+                </div>
               )}
             </div>
           </div>
@@ -163,6 +167,6 @@ export default function ProductDetailView({ product, slug }: ProductDetailViewPr
           </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }

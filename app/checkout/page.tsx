@@ -14,6 +14,19 @@ const productPrices: Record<string, number> = {
   "accelerator-database": 49, "1m-leads": 49, "1m-b2b-leads": 49, "prds": 19, "prd-bundle": 49,
   "architecture-docs": 19, "architecture-bundle": 49, "ui-ux-templates": 19,
   "ui-ux-bundle": 49, "pitch-decks": 19, "pitch-decks-templates": 19, "pitch-deck-bundle": 49,
+  "gtm-strategy": 199,
+  "nda-pack": 99,
+  "ma-strategy": 199,
+  "channel-partners": 99,
+  "website-content": 199,
+  "pitch-deck-samples": 99,
+  "proposals-docs": 99,
+  "sample-prd": 99,
+  "project-timeline-templates": 49,
+  "cold-email-templates": 49,
+  "150m-leads": 1999,
+  "390m-leads": 3999,
+  "all-assets-bundle": 100,
 };
 
 const productNames: Record<string, string> = {
@@ -25,6 +38,19 @@ const productNames: Record<string, string> = {
   "ui-ux-templates": "UI/UX Templates", "ui-ux-bundle": "UI/UX Bundle",
   "pitch-decks": "Pitch Deck Templates", "pitch-decks-templates": "Pitch Deck Templates",
   "pitch-deck-bundle": "Pitch Deck Bundle",
+  "gtm-strategy": "GTM and Strategy",
+  "nda-pack": "NDA and Agreements",
+  "ma-strategy": "M&A Strategy",
+  "channel-partners": "Channel Partner Pack",
+  "website-content": "Website Content",
+  "pitch-deck-samples": "Pitch Deck Samples",
+  "proposals-docs": "Proposals Docs",
+  "sample-prd": "Sample PRD",
+  "project-timeline-templates": "Project Timeline Templates",
+  "cold-email-templates": "Cold Email Templates",
+  "150m-leads": "150M Leads",
+  "390m-leads": "390M Leads",
+  "all-assets-bundle": "All Assets Bundle",
 };
 
 function CheckoutForm() {
