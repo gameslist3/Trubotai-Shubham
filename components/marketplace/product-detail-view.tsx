@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import {
   ArrowRight, CheckCircle, Star,
-  Zap, Clock, Download, Info, Shield
+  Zap, Clock, Info, Shield
 } from "lucide-react";
 import { ProductData } from "@/lib/product-data";
 
@@ -13,9 +13,25 @@ const productImages: Record<string, string> = {
   "finance-templates": "/Finance Database.png",
   "investor-database": "/Investor Database.png",
   "grant-database": "/Grant Database.png",
+  "accelerator-database": "/Accelerator.png",
+  "1m-leads": "/Leads (1M).png",
   "ai-linkedin-prompts": "/Al Linkedln Prompts Database.png",
   "architecture-prd": "/Architecture Database.png",
+  "product-prds": "/Product PRD.png",
   "real-estate": "/Real Estate Database.png",
+  "gtm-strategy": "/GTM.png",
+  "nda-pack": "/NDA and Agreements.png",
+  "ma-strategy": "/M&A.png",
+  "channel-partners": "/Channel Partner Pack.png",
+  "website-content": "/Website Content.png",
+  "pitch-deck-samples": "/Pitch Deck Samples.png",
+  "proposals-docs": "/Proposals Docs.png",
+  "sample-prd": "/Lean PRD.png",
+  "project-timeline-templates": "/Project Timeline Templates.png",
+  "cold-email-templates": "/Cold Email Templates.png",
+  "150m-leads": "/Leads (150M).png",
+  "390m-leads": "/Leads (390M).png",
+  "all-assets-bundle": "/All Assets Bundle.png",
 };
 
 // ── Section Component ──
@@ -57,7 +73,7 @@ export default function ProductDetailView({ product, slug }: ProductDetailViewPr
                     src={imageSrc}
                     alt={product.name}
                     fill
-                    className="object-cover"
+                    className="object-contain p-4"
                     sizes="(max-width: 1024px) 100vw, 50vw"
                   />
                 </div>
@@ -154,8 +170,7 @@ export default function ProductDetailView({ product, slug }: ProductDetailViewPr
                 href={`/verify?product=${slug}&price=${product.price}`}
                 className="w-full inline-flex items-center justify-center gap-2 bg-blue-600 text-white text-sm font-semibold px-5 py-3.5 rounded-xl hover:bg-blue-700 transition-all shadow-lg shadow-blue-600/25"
               >
-                <Download size={16} />
-                Buy Now — ${product.price}
+                Buy Now
                 <ArrowRight size={16} />
               </Link>
               <div className="mt-3 flex items-center justify-center gap-4 text-sm text-gray-400">
