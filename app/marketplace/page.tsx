@@ -57,6 +57,7 @@ const filterSubCategories: Record<string, SubCategory[]> = {
     { name: "Sample PRD", slug: "sample-prd", price: "99" },
     { name: "Project Timeline Templates", slug: "project-timeline-templates", price: "49" },
     { name: "Website Content", slug: "website-content", price: "199" },
+    { name: "Lean PRD", slug: "lean-prd", price: "99" },
   ],
 };
 
@@ -140,6 +141,24 @@ const productDetails: Record<string, ProductDetails> = {
       "Direct application links",
     ],
   },
+  "Leads (250K)": {
+    longDesc:
+      "A compact, targeted B2B lead dataset with 250,000 verified records. Perfect for smaller teams, niche campaigns, and budget-conscious outreach. Get clean, ready-to-use data without the enterprise price tag.",
+    note: "Important: This is a data asset, not the TruLead platform. This is a one-time downloadable lead database — not the full TruLead SaaS product. No login. No search interface. No AI scoring. No CRM sync.",
+    builtFor: [
+      "Small sales teams — Run targeted cold email campaigns without data overload",
+      "Startups — Validate niche markets with a focused, affordable dataset",
+      "Growth agencies — Build outreach lists for specific industries or regions",
+      "Founders — Test outreach messaging and generate early traction",
+    ],
+    whatYouGet: [
+      "250,000+ lead records",
+      "Clean, structured dataset (CSV / Excel ready)",
+      "Key fields: name, company, role, email (where available), industry, geography",
+      "Ready for upload into any outreach tool (Apollo, Lemlist, Instantly, etc.)",
+      "One-time download — no usage limits",
+    ],
+  },
   "Leads (1M)": {
     longDesc:
       "Launch campaigns today, not next week. Building outreach lists is slow, expensive, and repetitive. This gives you a ready-made database so your team can start sending campaigns immediately.",
@@ -189,7 +208,7 @@ const productDetails: Record<string, ProductDetails> = {
       "Useful for internal alignment, client delivery, and investor communication",
     ],
   },
-  "Product PRDs": {
+  "Product PRD": {
     longDesc:
       "Stop starting every PRD from a blank page. Writing a solid PRD can take days of senior product time. Our templates give you a proven structure for defining features, aligning stakeholders, and handing clear requirements to design and engineering.",
     builtFor: [
@@ -221,7 +240,7 @@ const productDetails: Record<string, ProductDetails> = {
       "Instant download, lifetime access",
     ],
   },
-  "GTM and Strategy": {
+  "GTM": {
     longDesc:
       "These are not MBA slide decks or theoretical frameworks. Every template in this pack is built around how early-stage companies actually think about go-to-market — from zero to first revenue, from first revenue to scale. That means flexible frameworks you adapt to your specific business model, step-by-step guidance built into every section, decision trees to guide your channel and motion choices, and formats ready for investor meetings, board reviews, and team planning sessions.",
     builtFor: [
@@ -259,7 +278,7 @@ const productDetails: Record<string, ProductDetails> = {
       "Complete documentation and audit trail for every confidentiality arrangement",
     ],
   },
-  "M&A Strategy": {
+  "M&A": {
     longDesc:
       "End-to-end M&A toolkit — from target identification through valuation, due diligence, and deal structuring, all in one pack. Strategy and execution in one place with built-in valuation metrics covering the key methodologies used in real transactions.",
     builtFor: [
@@ -295,6 +314,23 @@ const productDetails: Record<string, ProductDetails> = {
       "A deal registration process that protects your revenue and your partners' pipeline",
       "Proven GTM playbooks for Enterprise, SMB, and Agency segments",
       "A 90-day onboarding plan that gets new partners generating pipeline fast",
+    ],
+  },
+  "Lean PRD": {
+    longDesc:
+      "A streamlined Lean PRD template designed for rapid product definition. Perfect for startups and agile teams that need to validate ideas fast without heavy documentation overhead. Define your problem, solution, success metrics, and scope — all in one concise document.",
+    builtFor: [
+      "Startup founders — Validate product ideas quickly with minimal documentation",
+      "Product managers — Write focused PRDs that get to the point",
+      "Agile teams — Define MVPs and iterate based on real feedback",
+      "Engineers — Understand the what and why before building",
+    ],
+    whatYouGet: [
+      "Lean PRD template (editable format)",
+      "Problem statement framework",
+      "Success metrics and hypothesis tracking",
+      "Scope definition and prioritisation matrix",
+      "Ready for Notion, Google Docs, or Markdown",
     ],
   },
   "Website Content": {
@@ -402,25 +438,40 @@ const categories: Category[] = [
   { name: "Finance Templates", tag: "finance", icon: Calculator, price: "49", href: "/marketplace/finance-templates", bg: "bg-blue-100", iconColor: "text-blue-600", desc: "Professional financial planning and analysis templates. Budget, forecast, and report with ease to drive smarter business decisions." },
   { name: "Investor", tag: "investor", icon: Briefcase, price: "199", href: "/marketplace/investor-database", bg: "bg-purple-100", iconColor: "text-purple-600", desc: "Curated investor database with detailed funding preferences and contact info. Connect with the right VCs and angels for your startup." },
   { name: "Grant", tag: "database", icon: Database, price: "49", href: "/marketplace/grant-database", bg: "bg-green-100", iconColor: "text-green-600", desc: "Comprehensive grant database with eligibility filters and deadline tracking. Find and secure funding for your next big project." },
-  { name: "Accelerator", tag: "database", icon: Rocket, price: "49", href: "/marketplace/accelerator-database", bg: "bg-orange-100", iconColor: "text-orange-600", desc: "Top startup accelerator programs with application details and success metrics. Get into the best programs to scale faster." },
-  { name: "Leads (1M)", tag: "database", icon: Users, price: "49", href: "/marketplace/1m-leads", bg: "bg-pink-100", iconColor: "text-pink-600", desc: "1 million verified B2B leads across industries and regions. Target, filter, and convert your ideal customer profiles." },
+  { name: "Accelerator", tag: "data-assets", icon: Rocket, price: "49", href: "/marketplace/accelerator-database", bg: "bg-orange-100", iconColor: "text-orange-600", desc: "Top startup accelerator programs with application details and success metrics. Get into the best programs to scale faster." },
+  { name: "Leads (1M)", tag: "data-assets", icon: Users, price: "49", href: "/marketplace/1m-leads", bg: "bg-pink-100", iconColor: "text-pink-600", desc: "1 million verified B2B leads across industries and regions. Target, filter, and convert your ideal customer profiles." },
+  { name: "Leads (250K)", tag: "data-assets", icon: Users, price: "49", href: "/marketplace/250k-leads", bg: "bg-pink-100", iconColor: "text-pink-600", desc: "250,000 verified B2B leads — a compact, targeted dataset for focused outreach campaigns." },
   { name: "AI LinkedIn Prompts Pack", tag: "ai", icon: Sparkles, price: "49", href: "/marketplace/ai-linkedin-prompts", bg: "bg-indigo-100", iconColor: "text-indigo-600", desc: "AI-powered prompt templates for LinkedIn content creation. Generate engaging posts, comments, and outreach messages that get results." },
-  { name: "Architecture PRD", tag: "template", icon: Building2, price: "49", href: "/marketplace/architecture-prd", bg: "bg-teal-100", iconColor: "text-teal-600", desc: "Comprehensive architecture documentation templates for system design. Define constraints, trade-offs, and technical decisions with clarity." },
-  { name: "Product PRDs", tag: "template", icon: FileText, price: "39", href: "/marketplace/product-prds", bg: "bg-amber-100", iconColor: "text-amber-600", desc: "Ready-to-use product requirement document templates. Streamline product planning, align stakeholders, and ship with confidence." },
-  { name: "GTM and Strategy", tag: "gtm", icon: Crosshair, price: "199", href: "/marketplace/gtm-strategy", bg: "bg-sky-100", iconColor: "text-sky-600", desc: "Structured go-to-market frameworks and strategy templates. Move from idea to market with clarity, confidence, and a plan that scales." },
-  { name: "Pitch Deck Samples", tag: "template", icon: Send, price: "99", href: "/marketplace/pitch-deck-samples", bg: "bg-orange-100", iconColor: "text-orange-600", desc: "Professional pitch deck templates that help you tell your story and win investors." },
-  { name: "Proposals Docs", tag: "template", icon: FileText, price: "99", href: "/marketplace/proposals-docs", bg: "bg-blue-100", iconColor: "text-blue-600", desc: "Professional proposal and business plan templates for grant applications and client pitches." },
-  { name: "Sample PRD", tag: "template", icon: FileText, price: "99", href: "/marketplace/sample-prd", bg: "bg-amber-100", iconColor: "text-amber-600", desc: "Ready-to-use PRD samples and templates to help product teams define, scope, and communicate requirements." },
-  { name: "Project Timeline Templates", tag: "template", icon: Calendar, price: "49", href: "/marketplace/project-timeline-templates", bg: "bg-teal-100", iconColor: "text-teal-600", desc: "Professional project timeline and Gantt chart templates to plan, track, and deliver projects on time." },
-  { name: "Cold Email Templates", tag: "template", icon: Mail, price: "49", href: "/marketplace/cold-email-templates", bg: "bg-blue-100", iconColor: "text-blue-600", desc: "Proven cold email templates that get replies, book meetings, and close deals." },
-  { name: "NDA and Agreements", tag: "nda", icon: Shield, price: "99", href: "/marketplace/nda-pack", bg: "bg-slate-100", iconColor: "text-slate-600", desc: "Professional NDA templates, AI prompts, dashboards, documentation, and SOP tools for founders and LLPs." },
-  { name: "M&A Strategy", tag: "ma", icon: TrendingUp, price: "199", href: "/marketplace/ma-strategy", bg: "bg-emerald-100", iconColor: "text-emerald-600", desc: "Professional M&A strategy frameworks, analysis tools, valuation templates, and deal documentation." },
-  { name: "Channel Partner Pack", tag: "channel", icon: Handshake, price: "99", href: "/marketplace/channel-partners", bg: "bg-violet-100", iconColor: "text-violet-600", desc: "Everything to launch, manage, and scale a channel partner programme — templates, playbooks, and tools." },
-  { name: "Website Content", tag: "website", icon: Globe, price: "199", href: "/marketplace/website-content", bg: "bg-cyan-100", iconColor: "text-cyan-600", desc: "15 professionally written content documents covering every page of an AI startup website." },
+  { name: "Cold Email Templates", tag: "ai", icon: Mail, price: "49", href: "/marketplace/cold-email-templates", bg: "bg-blue-100", iconColor: "text-blue-600", desc: "Proven cold email templates that get replies, book meetings, and close deals." },
+  { name: "Architecture PRD", tag: "sdlc-templates", icon: Building2, price: "49", href: "/marketplace/architecture-prd", bg: "bg-teal-100", iconColor: "text-teal-600", desc: "Comprehensive architecture documentation templates for system design. Define constraints, trade-offs, and technical decisions with clarity." },
+  { name: "Product PRD", tag: "sdlc-templates", icon: FileText, price: "39", href: "/marketplace/product-prds", bg: "bg-amber-100", iconColor: "text-amber-600", desc: "Ready-to-use product requirement document templates. Streamline product planning, align stakeholders, and ship with confidence." },
+  { name: "Proposals Docs", tag: "sdlc-templates", icon: FileText, price: "99", href: "/marketplace/proposals-docs", bg: "bg-blue-100", iconColor: "text-blue-600", desc: "Professional proposal and business plan templates for grant applications and client pitches." },
+  { name: "Sample PRD", tag: "sdlc-templates", icon: FileText, price: "99", href: "/marketplace/sample-prd", bg: "bg-amber-100", iconColor: "text-amber-600", desc: "Ready-to-use PRD samples and templates to help product teams define, scope, and communicate requirements." },
+  { name: "Project Timeline Templates", tag: "sdlc-templates", icon: Calendar, price: "49", href: "/marketplace/project-timeline-templates", bg: "bg-teal-100", iconColor: "text-teal-600", desc: "Professional project timeline and Gantt chart templates to plan, track, and deliver projects on time." },
+  { name: "Website Content", tag: "sdlc-templates", icon: Globe, price: "199", href: "/marketplace/website-content", bg: "bg-cyan-100", iconColor: "text-cyan-600", desc: "15 professionally written content documents covering every page of an AI startup website." },
+  { name: "Lean PRD", tag: "sdlc-templates", icon: FileText, price: "99", href: "/marketplace/lean-prd", bg: "bg-amber-100", iconColor: "text-amber-600", desc: "Streamlined Lean PRD template to define, validate, and communicate product requirements fast." },
+  { name: "GTM", tag: "strategy", icon: Crosshair, price: "199", href: "/marketplace/gtm-strategy", bg: "bg-sky-100", iconColor: "text-sky-600", desc: "Structured go-to-market frameworks and strategy templates. Move from idea to market with clarity, confidence, and a plan that scales." },
+  { name: "Pitch Deck Samples", tag: "strategy", icon: Send, price: "99", href: "/marketplace/pitch-deck-samples", bg: "bg-orange-100", iconColor: "text-orange-600", desc: "Professional pitch deck templates that help you tell your story and win investors." },
+  { name: "NDA and Agreements", tag: "strategy", icon: Shield, price: "99", href: "/marketplace/nda-pack", bg: "bg-slate-100", iconColor: "text-slate-600", desc: "Professional NDA templates, AI prompts, dashboards, documentation, and SOP tools for founders and LLPs." },
+  { name: "M&A", tag: "strategy", icon: TrendingUp, price: "199", href: "/marketplace/ma-strategy", bg: "bg-emerald-100", iconColor: "text-emerald-600", desc: "Professional M&A strategy frameworks, analysis tools, valuation templates, and deal documentation." },
+  { name: "Channel Partner Pack", tag: "strategy", icon: Handshake, price: "99", href: "/marketplace/channel-partners", bg: "bg-violet-100", iconColor: "text-violet-600", desc: "Everything to launch, manage, and scale a channel partner programme — templates, playbooks, and tools." },
   { name: "Real Estate", tag: "real-estate", icon: Home, price: "199", href: "/marketplace/real-estate", bg: "bg-rose-100", iconColor: "text-rose-600", desc: "Professional-grade templates, trackers, and workflows for landlords, property investors, and real estate pros." },
-  { name: "150M Leads", tag: "leads-big", icon: Database, price: "1999", href: "/marketplace/150m-leads", bg: "bg-purple-100", iconColor: "text-purple-600", desc: "150 million verified B2B leads — the ultimate dataset for enterprise-scale outreach campaigns." },
-  { name: "390M Leads", tag: "leads-big", icon: Database, price: "3999", href: "/marketplace/390m-leads", bg: "bg-indigo-100", iconColor: "text-indigo-600", desc: "390 million verified B2B leads — the most comprehensive B2B dataset available." },
+  { name: "Leads (150M)", tag: "leads-bulk", icon: Database, price: "1999", href: "/marketplace/150m-leads", bg: "bg-purple-100", iconColor: "text-purple-600", desc: "150 million verified B2B leads — the ultimate dataset for enterprise-scale outreach campaigns." },
+  { name: "Leads (390M)", tag: "leads-bulk", icon: Database, price: "3999", href: "/marketplace/390m-leads", bg: "bg-indigo-100", iconColor: "text-indigo-600", desc: "390 million verified B2B leads — the most comprehensive B2B dataset available." },
 ];
+
+// ── Cards that should not show "See more" ──
+const CARDS_WITHOUT_SEE_MORE = new Set([
+  "Sample PRD",
+  "Project Timeline Templates",
+  "Cold Email Templates",
+  "Leads (150M)",
+  "Leads (390M)",
+  "Pitch Deck Samples",
+  "Proposals Docs",
+  "Leads (250K)",
+  "Lean PRD",
+]);
 
 // ── Component ──
 export default function MarketplacePage() {
@@ -439,12 +490,6 @@ export default function MarketplacePage() {
     }
   }, [tooltipCard]);
 
-  // Reset selected product when filter changes
-  useEffect(() => {
-    setSelectedProductSlug(null);
-    setActiveSubCategory(null);
-  }, [activeFilter]);
-
   const subCategories = filterSubCategories[activeFilter] || [];
   const hasSubCategories = subCategories.length > 0;
   const isSingleProductFilter = ["finance", "real-estate", "bundle"].includes(activeFilter);
@@ -459,10 +504,37 @@ export default function MarketplacePage() {
 
   const filteredCategories =
     activeFilter === "all"
-      ? categories
+      ? [...categories]
       : categories.filter((cat) => cat.tag === activeFilter);
 
+  // Sort: "All Assets Bundle" always first, then alphabetical
+  filteredCategories.sort((a, b) => {
+    if (a.name === "All Assets Bundle") return -1;
+    if (b.name === "All Assets Bundle") return 1;
+    return a.name.localeCompare(b.name);
+  });
+
   const selectedDetails = tooltipCard ? productDetails[tooltipCard] : null;
+
+  // Handle card click — switch to inline filter view instead of navigating away
+  const handleCardClick = (cat: Category) => {
+    const slug = cat.href.split("/").pop() || "";
+    setActiveFilter(cat.tag);
+    setSelectedProductSlug(slug);
+    setTooltipCard(null);
+    // Set subcategory if the filter has matching subcategories
+    const subCats = filterSubCategories[cat.tag];
+    if (subCats) {
+      const matching = subCats.find((s) => s.slug === slug);
+      if (matching) {
+        setActiveSubCategory(matching.slug);
+      } else {
+        setActiveSubCategory(null);
+      }
+    } else {
+      setActiveSubCategory(null);
+    }
+  };
 
   // For specific filter views: get products from shared data
   const isFilteredView = activeFilter !== "all";
@@ -506,6 +578,8 @@ export default function MarketplacePage() {
                 key={f.value}
                 onClick={() => {
                   setActiveFilter(f.value);
+                  setSelectedProductSlug(null);
+                  setActiveSubCategory(null);
                   setTooltipCard(null);
                 }}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
@@ -524,33 +598,37 @@ export default function MarketplacePage() {
             <motion.div
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
-              className="flex flex-wrap items-center justify-center gap-1.5 mb-8"
+              className="flex flex-wrap items-center justify-center gap-0 mb-8"
             >
               {subCategories.map((sub, idx) => {
                 const isActive = activeSubCategory === sub.slug || (!activeSubCategory && idx === 0);
                 return (
-                  <button
-                    key={sub.slug}
-                    onClick={() => {
-                      setActiveSubCategory(sub.slug);
-                      setSelectedProductSlug(sub.slug);
-                      setTooltipCard(null);
-                    }}
-                    className={`relative px-3.5 py-2 rounded-lg text-xs font-medium transition-all duration-200 ${
-                      isActive
-                        ? "bg-blue-600 text-white shadow-sm shadow-blue-600/15"
-                        : "bg-gray-50 text-gray-500 hover:bg-gray-100 hover:text-gray-700"
-                    }`}
-                  >
-                    {sub.name}
-                    {/* Active bottom bar */}
-                    {isActive && (
-                      <motion.div
-                        layoutId="activeSubTab"
-                        className="absolute -bottom-[1px] left-[20%] right-[20%] h-[2px] bg-white/70 rounded-full"
-                      />
+                  <div key={sub.slug} className="flex items-center">
+                    {idx > 0 && (
+                      <div className="w-px h-4 bg-gray-200 mx-3" />
                     )}
-                  </button>
+                    <button
+                      onClick={() => {
+                        setActiveSubCategory(sub.slug);
+                        setSelectedProductSlug(sub.slug);
+                        setTooltipCard(null);
+                      }}
+                      className={`relative px-1.5 py-2 text-xs font-medium transition-all duration-200 whitespace-nowrap ${
+                        isActive
+                          ? "text-blue-600"
+                          : "text-gray-400 hover:text-gray-600"
+                      }`}
+                    >
+                      {sub.name}
+                      {/* Active bottom line */}
+                      {isActive && (
+                        <motion.div
+                          layoutId="activeSubTab"
+                          className="absolute bottom-0 left-0 right-0 h-[2px] bg-blue-600 rounded-full"
+                        />
+                      )}
+                    </button>
+                  </div>
                 );
               })}
             </motion.div>
@@ -655,19 +733,16 @@ export default function MarketplacePage() {
                 transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
                 className="relative"
               >
-                {/* Soft amber glow behind text */}
-                <div className="absolute -inset-3 bg-amber-400/15 rounded-full blur-md" />
-                <div className="relative flex items-center gap-2.5 text-white text-xs md:text-sm font-bold uppercase tracking-wider [text-shadow:0_1px_6px_rgba(0,0,0,0.4)]">
-                  <svg className="w-4 h-4 text-amber-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                {/* Dark blue shadow glow behind text */}
+                <div className="absolute -inset-3 bg-blue-900/20 rounded-full blur-md" />
+                <div className="relative flex items-center gap-2.5 text-white text-xs md:text-sm font-bold uppercase tracking-wider [text-shadow:0_2px_8px_rgba(0,0,0,0.4)]">
+                  <svg className="w-4 h-4 text-white/80" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <circle cx="12" cy="12" r="10"/>
                     <polyline points="12 6 12 12 16 14"/>
                   </svg>
                   <span className="text-white font-extrabold tracking-[0.12em]">
                     Limited Time Offer
                   </span>
-                  <svg className="w-4 h-4 text-amber-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                  </svg>
                 </div>
               </motion.div>
             </div>
@@ -735,39 +810,33 @@ export default function MarketplacePage() {
                       className={`relative h-full ${cat.name === "All Assets Bundle" ? "sm:col-span-2 lg:col-span-1" : ""} ${showTooltip ? "z-50" : "z-[1]"}`}
                     >
                       {cat.name === "All Assets Bundle" ? (
-                        /* ── ── PREMIUM BUNDLE CARD ── ── */
-                        <div className="group relative bg-gradient-to-br from-amber-50 via-white to-yellow-50/60 border-2 border-amber-300/60 rounded-2xl px-5 pt-5 pb-5 transition-all duration-300 flex flex-col h-full shadow-lg shadow-amber-200/30 hover:shadow-xl hover:shadow-amber-300/30 hover:-translate-y-1.5 hover:border-amber-400 overflow-hidden">
-                          {/* ── Premium decorative elements ── */}
-                          <div className="absolute -top-12 -right-12 w-32 h-32 bg-gradient-to-br from-amber-200/20 to-yellow-300/10 rounded-full blur-2xl pointer-events-none" />
-                          <div className="absolute -bottom-8 -left-8 w-28 h-28 bg-gradient-to-tr from-yellow-200/20 to-amber-300/10 rounded-full blur-2xl pointer-events-none" />
-                          <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-amber-400/8 to-transparent rounded-bl-[100%] pointer-events-none" />
-                          {/* Top accent line */}
-                          <div className="absolute top-0 left-4 right-4 h-0.5 bg-gradient-to-r from-transparent via-amber-400 to-transparent rounded-full" />
-                          
-                          {/* ── BEST VALUE Badge ── */}
-                          <div className="absolute -top-[1px] right-6 z-10">
-                            <div className="relative">
-                              <div className="bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-500 text-white text-[9px] font-extrabold uppercase tracking-[0.12em] px-3 py-1 rounded-b-lg shadow-lg shadow-amber-500/30">
-                                ★ Best Value
-                              </div>
-                              <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[4px] border-t-amber-600" />
+                        /* ── ── CLEAN BUNDLE CARD ── ── */
+                        <div
+                          onClick={() => handleCardClick(cat)}
+                          onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleCardClick(cat); } }}
+                          role="button"
+                          tabIndex={0}
+                          className="group relative bg-white border-2 border-amber-200/70 rounded-2xl px-5 pt-5 pb-5 transition-all duration-300 flex flex-col h-full shadow-md hover:shadow-xl hover:shadow-amber-200/20 hover:-translate-y-1.5 hover:border-amber-300 overflow-hidden cursor-pointer"
+                        >
+                          {/* Simple Best Value tag */}
+                          <div className="absolute top-0 right-0">
+                            <div className="bg-amber-500 text-white text-[8px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-bl-xl rounded-tr-xl">
+                              Best Value
                             </div>
                           </div>
 
                           <div className="flex flex-col flex-1">
                             {/* Top: Icon + Heading */}
                             <div className="flex items-center gap-3">
-                              <div className="relative flex-shrink-0 w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-gradient-to-br from-amber-400 to-yellow-500 flex items-center justify-center shadow-md shadow-amber-300/40 ring-2 ring-amber-200/50">
-                                <cat.icon size={32} className="text-white" />
-                                {/* Subtle shimmer */}
-                                <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr from-white/10 to-transparent" />
+                              <div className="flex-shrink-0 w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-amber-100 flex items-center justify-center">
+                                <cat.icon size={32} className="text-amber-600" />
                               </div>
                               <div>
                                 <h3 className="text-[15px] md:text-[17px] font-bold text-[#18352b] leading-tight">
                                   {cat.name}
                                 </h3>
-                                <p className="text-[10px] md:text-[11px] text-amber-600 font-semibold tracking-wide mt-0.5">
-                                  22 Premium Assets Included
+                                <p className="text-[10px] text-amber-600 font-medium mt-0.5">
+                                  22 Premium Assets
                                 </p>
                               </div>
                             </div>
@@ -778,58 +847,51 @@ export default function MarketplacePage() {
                                 {cat.desc}
                               </p>
 
-                              {/* Quick summary chips */}
-                              <div className="flex flex-wrap gap-1.5 mt-3">
-                                {["Finance", "Databases", "Templates", "Leads", "Strategy", "Legal"].map((tag) => (
-                                  <span key={tag} className="text-[9px] font-semibold px-2 py-0.5 rounded-full bg-amber-100/70 text-amber-700 border border-amber-200/50">
-                                    {tag}
-                                  </span>
-                                ))}
-                              </div>
-
-                              {/* "View More" button */}
+                              {/* "View All" link */}
                               <div className="flex justify-end mt-auto pt-3 pb-1">
                                 <button
-                                  onClick={() => setBundleListOpen(true)}
-                                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-amber-600 hover:text-amber-700 cursor-pointer transition-all select-none group/view"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    setBundleListOpen(true);
+                                  }}
+                                  className="inline-flex items-center gap-1 text-xs font-medium text-amber-600 hover:text-amber-700 transition-colors"
                                 >
-                                  <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
-                                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
-                                  </svg>
-                                  <span>View all {categories.length - 1} products</span>
-                                  <ArrowRight size={12} className="transition-transform group-hover/view:translate-x-0.5" />
+                                  View all {categories.length - 1} products
+                                  <ArrowRight size={12} />
                                 </button>
                               </div>
                             </div>
 
                             {/* Bottom: Price + Buy Now */}
-                            <div className="flex items-center justify-between mt-auto pt-5 border-t border-amber-200/60">
+                            <div className="flex items-center justify-between mt-auto pt-5 border-t border-amber-100">
                               <div className="flex flex-col">
                                 <div className="flex items-center gap-2">
-                                  <span className="text-sm text-gray-400 line-through">
-                                    $10,599
-                                  </span>
+                                  <span className="text-sm text-gray-400 line-through">$10,599</span>
                                   <span className="inline-flex items-center bg-green-100 text-green-700 text-[9px] font-bold px-1.5 py-0.5 rounded">50% OFF</span>
                                 </div>
-                                <span className="text-xl md:text-2xl font-bold text-amber-600">
-                                  $5,299
-                                </span>
-                                <span className="text-[9px] text-gray-400 mt-0.5">One-time payment · Lifetime access</span>
+                                <span className="text-xl md:text-2xl font-bold text-amber-600">$5,299</span>
+                                <span className="text-[9px] text-gray-400 mt-0.5">One-time · Lifetime access</span>
                               </div>
                               <Link
                                 href={`/verify?product=${cat.href.split("/").pop()}&price=${cat.price}`}
-                                className="inline-flex items-center gap-1.5 bg-gradient-to-r from-amber-500 to-yellow-500 text-white text-sm font-bold px-4 py-2.5 rounded-xl hover:from-amber-600 hover:to-yellow-600 transition-all duration-200 shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 hover:gap-2"
+                                onClick={(e) => e.stopPropagation()}
+                                className="inline-flex items-center gap-1.5 bg-amber-500 text-white text-sm font-bold px-4 py-2.5 rounded-xl hover:bg-amber-600 transition-all duration-200 shadow-md hover:shadow-lg"
                               >
                                 Buy Now
-                                <ArrowRight size={14} className="transition-transform" />
+                                <ArrowRight size={14} />
                               </Link>
                             </div>
                           </div>
                         </div>
                       ) : (
                         /* ── ── STANDARD CARD ── ── */
-                        <div className="group bg-white border border-gray-200 rounded-2xl px-5 pt-5 pb-5 transition-all duration-300 flex flex-col relative hover:border-blue-300 hover:shadow-xl hover:shadow-blue-600/8 hover:-translate-y-1.5">
+                        <div
+                          onClick={() => handleCardClick(cat)}
+                          onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleCardClick(cat); } }}
+                          role="button"
+                          tabIndex={0}
+                          className="group bg-white border border-gray-200 rounded-2xl px-5 pt-5 pb-5 transition-all duration-300 flex flex-col h-full relative hover:border-blue-300 hover:shadow-xl hover:shadow-blue-600/8 hover:-translate-y-1.5 cursor-pointer"
+                        >
                           <div className="flex flex-col flex-1">
                             {/* Top: Icon + Heading */}
                             <div className="flex items-center gap-3">
@@ -852,51 +914,53 @@ export default function MarketplacePage() {
                                 {cat.desc}
                               </p>
 
-                              {/* "See more" — compact, no divider */}
-                              <div className="flex justify-end mt-auto pt-3 pb-1">
-                              <div className="relative">
-                                <button
-                                  onClick={(e) => {
-                                    if (window.innerWidth < 640) {
+                              {/* "See more" — compact, no divider (hidden for cards without details) */}
+                              {!CARDS_WITHOUT_SEE_MORE.has(cat.name) && (
+                                <div className="flex justify-end mt-auto pt-3 pb-1">
+                                <div className="relative">
+                                  <button
+                                    onClick={(e) => {
                                       e.stopPropagation();
-                                      setTooltipCard(tooltipCard === cat.name ? null : cat.name);
-                                    }
-                                  }}
-                                  onMouseEnter={(e) => {
-                                    if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
-                                    // Calculate position relative to the card
-                                    const btn = e.currentTarget;
-                                    const card = btn.closest('.group') as HTMLElement | null;
-                                    if (card) {
-                                      const rect = card.getBoundingClientRect();
-                                      const tooltipW = 448; // 28rem
-                                      const gap = 12;
-                                      const estimatedH = 480; // estimated max tooltip height
-                                      // Clamp top so tooltip stays within viewport
-                                      // Center tooltip vertically with the card
-                                      const top = Math.max(16, Math.min(rect.top + rect.height / 2 - estimatedH / 2, window.innerHeight - estimatedH - 16));
-                                      // Position to the right if room, otherwise to the left
-                                      if (window.innerWidth - rect.right >= tooltipW + gap) {
-                                        setTooltipPos({ top, left: rect.right + gap, side: 'right' });
-                                      } else if (rect.left >= tooltipW + gap) {
-                                        setTooltipPos({ top, left: rect.left - tooltipW - gap, side: 'left' });
-                                      } else {
-                                        // Fallback: center on screen
-                                        setTooltipPos({ top: Math.max(16, (window.innerHeight - estimatedH) / 2), left: (window.innerWidth - tooltipW) / 2, side: 'center' });
+                                      if (window.innerWidth < 640) {
+                                        setTooltipCard(tooltipCard === cat.name ? null : cat.name);
                                       }
-                                    }
-                                    setTooltipCard(cat.name);
-                                  }}
-                                  onMouseLeave={() => {
-                                    closeTimeoutRef.current = setTimeout(() => setTooltipCard(null), 100);
-                                  }}
-                                  className="inline-flex items-center gap-1 text-xs font-medium text-blue-400/70 hover:text-blue-600 cursor-pointer transition-colors select-none"
-                                >
-                                  <Info size={12} />
-                                  <span>See more</span>
-                                </button>
+                                    }}
+                                    onMouseEnter={(e) => {
+                                      if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
+                                      // Calculate position relative to the card
+                                      const btn = e.currentTarget;
+                                      const card = btn.closest('.group') as HTMLElement | null;
+                                      if (card) {
+                                        const rect = card.getBoundingClientRect();
+                                        const tooltipW = 448; // 28rem
+                                        const gap = 12;
+                                        const estimatedH = 480; // estimated max tooltip height
+                                        // Clamp top so tooltip stays within viewport
+                                        // Center tooltip vertically with the card
+                                        const top = Math.max(16, Math.min(rect.top + rect.height / 2 - estimatedH / 2, window.innerHeight - estimatedH - 16));
+                                        // Position to the right if room, otherwise to the left
+                                        if (window.innerWidth - rect.right >= tooltipW + gap) {
+                                          setTooltipPos({ top, left: rect.right + gap, side: 'right' });
+                                        } else if (rect.left >= tooltipW + gap) {
+                                          setTooltipPos({ top, left: rect.left - tooltipW - gap, side: 'left' });
+                                        } else {
+                                          // Fallback: center on screen
+                                          setTooltipPos({ top: Math.max(16, (window.innerHeight - estimatedH) / 2), left: (window.innerWidth - tooltipW) / 2, side: 'center' });
+                                        }
+                                      }
+                                      setTooltipCard(cat.name);
+                                    }}
+                                    onMouseLeave={() => {
+                                      closeTimeoutRef.current = setTimeout(() => setTooltipCard(null), 100);
+                                    }}
+                                    className="inline-flex items-center gap-1 text-xs font-medium text-blue-400/70 hover:text-blue-600 cursor-pointer transition-colors select-none"
+                                  >
+                                    <Info size={12} />
+                                    <span>See more</span>
+                                  </button>
+                                </div>
                               </div>
-                            </div>
+                              )}
                             </div>
 
                             {/* Bottom: Price + Buy Now */}
@@ -914,6 +978,7 @@ export default function MarketplacePage() {
                               </div>
                               <Link
                                 href={`/verify?product=${cat.href.split("/").pop()}&price=${cat.price}`}
+                                onClick={(e) => e.stopPropagation()}
                                 className="inline-flex items-center gap-1.5 text-sm font-medium text-gray-500 hover:text-blue-600 transition-all duration-200 hover:gap-2"
                               >
                                 Buy Now

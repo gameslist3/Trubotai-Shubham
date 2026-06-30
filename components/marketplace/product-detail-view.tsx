@@ -29,8 +29,10 @@ const productImages: Record<string, string> = {
   "sample-prd": "/Lean PRD.png",
   "project-timeline-templates": "/Project Timeline Templates.png",
   "cold-email-templates": "/Cold Email Templates.png",
+  "250k-leads": "/Leads (250K).png",
   "150m-leads": "/Leads (150M).png",
   "390m-leads": "/Leads (390M).png",
+  "lean-prd": "/Lean PRD.png",
   "all-assets-bundle": "/All Assets Bundle.png",
 };
 
@@ -73,8 +75,11 @@ export default function ProductDetailView({ product, slug }: ProductDetailViewPr
                     src={imageSrc}
                     alt={product.name}
                     fill
-                    className="object-contain p-4"
+                    draggable={false}
+                    onContextMenu={(e) => e.preventDefault()}
+                    className="object-contain p-4 select-none"
                     sizes="(max-width: 1024px) 100vw, 50vw"
+                    style={{ 'webkitUserDrag': 'none' } as React.CSSProperties}
                   />
                 </div>
               ) : (

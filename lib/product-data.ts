@@ -99,6 +99,25 @@ export const products: Record<string, ProductData> = {
     iconColor: "text-orange-600",
     previewType: "database",
   },
+  "250k-leads": {
+    name: "Leads (250K)",
+    tagline: "250,000 verified B2B leads — a compact, targeted dataset for focused outreach.",
+    description: "250,000 verified B2B leads — a compact, targeted dataset for focused outreach campaigns across industries and regions.",
+    longDescription: "A compact, targeted B2B lead dataset with 250,000 verified records. Perfect for smaller teams, niche campaigns, and budget-conscious outreach. Get clean, ready-to-use data without the enterprise price tag.",
+    price: 49,
+    icon: Users,
+    features: ["250K+ verified B2B records", "Company & contact data", "Industry classification", "Decision-maker titles", "Geographic coverage", "CRM-ready export"],
+    whatsIncluded: ["250K+ lead database", "Contact names & emails", "Company & industry data", "Job title & seniority info", "CSV & Excel exports", "Data dictionary guide"],
+    keyBenefits: ["Skip weeks of list building", "Verified contact information", "Ready for any outreach tool", "B2B focused & segmented", "One-time purchase — use forever", "No subscription or hidden fees"],
+    useCases: ["Cold email outreach campaigns", "Sales prospecting & lead gen", "Market validation research", "Growth hacking experiments", "Agency client acquisition"],
+    note: "Important: This is a data asset, not the TruLead platform. This is a one-time downloadable lead database — not the full TruLead SaaS product.",
+    deliverables: ["CSV file (CRM-ready)", "Excel spreadsheet (.xlsx)", "Data dictionary & usage guide"],
+    color: "from-pink-500/10 to-pink-600/5",
+    bgColor: "bg-pink-50",
+    iconBg: "bg-pink-100",
+    iconColor: "text-pink-600",
+    previewType: "leads",
+  },
   "1m-leads": {
     name: "Leads (1M)",
     tagline: "1 million verified B2B leads — launch your outreach campaigns today.",
@@ -155,7 +174,7 @@ export const products: Record<string, ProductData> = {
     previewType: "document",
   },
   "product-prds": {
-    name: "Product PRDs",
+    name: "Product PRD",
     tagline: "Ready-to-use PRD templates — ship better products with clear requirements.",
     description: "Ready-to-use product requirement document templates. Streamline product planning, align stakeholders, and ship with confidence.",
     longDescription: "Stop starting every PRD from a blank page. Writing a solid PRD can take days of senior product time. Our templates give you a proven structure for defining features, aligning stakeholders, and handing clear requirements to design and engineering.",
@@ -191,7 +210,7 @@ export const products: Record<string, ProductData> = {
     previewType: "realestate",
   },
   "gtm-strategy": {
-    name: "GTM and Strategy",
+    name: "GTM",
     tagline: "Stop Guessing. Start Growing With a Plan.",
     description: "Structured go-to-market frameworks and strategy templates for founders, operators, and growth leaders who need to move from idea to market — with clarity, confidence, and a plan that scales.",
     longDescription: "These are not MBA slide decks or theoretical frameworks. Every template in this pack is built around how early-stage companies actually think about go-to-market — from zero to first revenue, from first revenue to scale. That means: flexible frameworks you adapt to your specific business model, step-by-step guidance built into every section, decision trees to guide your channel and motion choices, and formats ready for investor meetings, board reviews, and team planning sessions.",
@@ -280,7 +299,7 @@ export const products: Record<string, ProductData> = {
     previewType: "document",
   },
   "ma-strategy": {
-    name: "M&A Strategy",
+    name: "M&A",
     tagline: "Move Faster, Negotiate Smarter, and Close Better Deals.",
     description: "Professional M&A strategy frameworks, analysis tools, valuation templates, and deal documentation for founders, investors, and corporate development teams.",
     longDescription: "End-to-end M&A toolkit — from target identification through valuation, due diligence, and deal structuring, all in one pack. Strategy and execution in one place with built-in valuation metrics covering the key methodologies used in real transactions.",
@@ -367,6 +386,24 @@ export const products: Record<string, ProductData> = {
     bgColor: "bg-violet-50",
     iconBg: "bg-violet-100",
     iconColor: "text-violet-600",
+    previewType: "document",
+  },
+  "lean-prd": {
+    name: "Lean PRD",
+    tagline: "Streamlined Lean PRD template — validate and define products fast.",
+    description: "Streamlined Lean PRD template to define, validate, and communicate product requirements fast.",
+    longDescription: "A streamlined Lean PRD template designed for rapid product definition. Perfect for startups and agile teams that need to validate ideas fast without heavy documentation overhead. Define your problem, solution, success metrics, and scope — all in one concise document.",
+    price: 99,
+    icon: FileText,
+    features: ["Lean PRD template", "Problem statement framework", "Success metrics & hypothesis tracking", "Scope definition matrix", "Prioritisation frameworks", "Editable format"],
+    whatsIncluded: ["Lean PRD template (editable)", "Problem & solution frameworks", "Hypothesis tracking sheets", "Scope & priority matrices", "Google Docs & Markdown formats", "Usage guide"],
+    keyBenefits: ["Validate ideas in days, not weeks", "Focused — no documentation bloat", "Agile-friendly structure", "Works for MVPs & new features", "Editable and customisable", "Instant download, lifetime access"],
+    useCases: ["Startup founders validating product ideas", "PMs writing focused, concise PRDs", "Agile teams defining MVPs", "Engineers understanding requirements fast"],
+    deliverables: ["Lean PRD template", "Google Docs version", "Usage guide"],
+    color: "from-amber-500/10 to-amber-600/5",
+    bgColor: "bg-amber-50",
+    iconBg: "bg-amber-100",
+    iconColor: "text-amber-600",
     previewType: "document",
   },
   "website-content": {
@@ -505,7 +542,7 @@ export const products: Record<string, ProductData> = {
     previewType: "document",
   },
   "150m-leads": {
-    name: "150M Leads",
+    name: "Leads (150M)",
     tagline: "150 million verified B2B leads — the ultimate dataset for enterprise-scale outreach.",
     description: "150 million verified B2B leads across industries, regions, and decision-maker titles. The ultimate dataset for enterprise-scale outreach campaigns.",
     longDescription: "Enterprise-scale lead database covering 150 million verified B2B records. Perfect for large-scale outreach campaigns, market analysis, and data-driven sales strategies across multiple industries and geographies.",
@@ -524,7 +561,7 @@ export const products: Record<string, ProductData> = {
     previewType: "leads",
   },
   "390m-leads": {
-    name: "390M Leads",
+    name: "Leads (390M)",
     tagline: "390 million verified B2B leads — the most comprehensive B2B dataset available.",
     description: "390 million verified B2B leads — the most comprehensive B2B dataset available for maximum market coverage.",
     longDescription: "The ultimate B2B lead database covering 390 million verified records. The most comprehensive dataset for organizations that need maximum market coverage across all industries, geographies, and decision-maker levels.",
@@ -598,9 +635,9 @@ export const filterToSlugs: Record<string, string[]> = {
   "real-estate": ["real-estate"],
   // New category structure
   "strategy": ["channel-partners", "gtm-strategy", "pitch-deck-samples", "nda-pack", "ma-strategy"],
-  "data-assets": ["accelerator-database", "grant-database", "investor-database", "1m-leads"],
+  "data-assets": ["accelerator-database", "grant-database", "investor-database", "250k-leads", "1m-leads"],
   "leads-bulk": ["150m-leads", "390m-leads"],
-  "sdlc-templates": ["architecture-prd", "product-prds", "proposals-docs", "sample-prd", "project-timeline-templates", "website-content"],
+  "sdlc-templates": ["architecture-prd", "product-prds", "proposals-docs", "sample-prd", "project-timeline-templates", "website-content", "lean-prd"],
 };
 
 export function getProductsByFilter(filter: string): ProductData[] {

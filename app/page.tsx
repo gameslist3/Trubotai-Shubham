@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 
 export default function HomePage() {
@@ -10,7 +12,10 @@ export default function HomePage() {
         height={0}
         sizes="100vw"
         priority
-        className="w-full h-auto"
+        draggable={false}
+        onContextMenu={(e) => e.preventDefault()}
+        className="w-full h-auto select-none"
+        style={{ 'webkitUserDrag': 'none' } as React.CSSProperties}
       />
     </div>
   );
