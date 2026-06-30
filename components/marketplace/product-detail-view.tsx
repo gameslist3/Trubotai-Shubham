@@ -79,7 +79,6 @@ export default function ProductDetailView({ product, slug }: ProductDetailViewPr
                     onContextMenu={(e) => e.preventDefault()}
                     className="object-contain p-4 select-none"
                     sizes="(max-width: 1024px) 100vw, 50vw"
-                    style={{ 'webkitUserDrag': 'none' } as React.CSSProperties}
                   />
                 </div>
               ) : (

@@ -19,7 +19,7 @@ function EmailAccessContent() {
     <div className="fixed inset-0 overflow-hidden bg-white">
       {/* Background image */}
       <div className="absolute inset-0">
-        <Image src="/email.png" alt="Email background" fill className="object-cover select-none" priority draggable={false} onContextMenu={(e) => e.preventDefault()} style={{ 'webkitUserDrag': 'none' } as React.CSSProperties} />
+        <Image src="/email.png" alt="Email background" fill className="object-cover select-none" priority draggable={false} onContextMenu={(e) => e.preventDefault()}  />
       </div>
 
       {/* Email card */}

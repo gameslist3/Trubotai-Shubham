@@ -436,8 +436,8 @@ interface Category {
 const categories: Category[] = [
   { name: "All Assets Bundle", tag: "bundle", icon: Gift, price: "5299", href: "/marketplace/all-assets-bundle", bg: "bg-amber-100", iconColor: "text-amber-600", desc: "Every digital asset in our marketplace at a massive discount. Get everything in one bundle." },
   { name: "Finance Templates", tag: "finance", icon: Calculator, price: "49", href: "/marketplace/finance-templates", bg: "bg-blue-100", iconColor: "text-blue-600", desc: "Professional financial planning and analysis templates. Budget, forecast, and report with ease to drive smarter business decisions." },
-  { name: "Investor", tag: "investor", icon: Briefcase, price: "199", href: "/marketplace/investor-database", bg: "bg-purple-100", iconColor: "text-purple-600", desc: "Curated investor database with detailed funding preferences and contact info. Connect with the right VCs and angels for your startup." },
-  { name: "Grant", tag: "database", icon: Database, price: "49", href: "/marketplace/grant-database", bg: "bg-green-100", iconColor: "text-green-600", desc: "Comprehensive grant database with eligibility filters and deadline tracking. Find and secure funding for your next big project." },
+  { name: "Investor", tag: "data-assets", icon: Briefcase, price: "199", href: "/marketplace/investor-database", bg: "bg-purple-100", iconColor: "text-purple-600", desc: "Curated investor database with detailed funding preferences and contact info. Connect with the right VCs and angels for your startup." },
+  { name: "Grant", tag: "data-assets", icon: Database, price: "49", href: "/marketplace/grant-database", bg: "bg-green-100", iconColor: "text-green-600", desc: "Comprehensive grant database with eligibility filters and deadline tracking. Find and secure funding for your next big project." },
   { name: "Accelerator", tag: "data-assets", icon: Rocket, price: "49", href: "/marketplace/accelerator-database", bg: "bg-orange-100", iconColor: "text-orange-600", desc: "Top startup accelerator programs with application details and success metrics. Get into the best programs to scale faster." },
   { name: "Leads (1M)", tag: "data-assets", icon: Users, price: "49", href: "/marketplace/1m-leads", bg: "bg-pink-100", iconColor: "text-pink-600", desc: "1 million verified B2B leads across industries and regions. Target, filter, and convert your ideal customer profiles." },
   { name: "Leads (250K)", tag: "data-assets", icon: Users, price: "49", href: "/marketplace/250k-leads", bg: "bg-pink-100", iconColor: "text-pink-600", desc: "250,000 verified B2B leads — a compact, targeted dataset for focused outreach campaigns." },
@@ -482,6 +482,8 @@ export default function MarketplacePage() {
   const [selectedProductSlug, setSelectedProductSlug] = useState<string | null>(null);
   const [bundleListOpen, setBundleListOpen] = useState(false);
   const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const detailContentRef = useRef<HTMLDivElement>(null);
+  const skipScrollRef = useRef(false);
 
   // Clear position when tooltip closes
   useEffect(() => {
@@ -541,6 +543,18 @@ export default function MarketplacePage() {
   const filterProducts = isFilteredView ? getProductsByFilter(activeFilter) : [];
   const currentProductSlug = selectedProductSlug || currentSlug;
 
+  // Scroll to detail content when a card is clicked (not on filter/submenu clicks)
+  useEffect(() => {
+    if (skipScrollRef.current) {
+      skipScrollRef.current = false;
+      return;
+    }
+    if (isFilteredView && currentProductSlug && detailContentRef.current) {
+      const y = detailContentRef.current.getBoundingClientRect().top + window.scrollY - 24;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+  }, [isFilteredView, currentProductSlug]);
+
   return (
     <>
       {/* Hero */}
@@ -577,6 +591,7 @@ export default function MarketplacePage() {
               <button
                 key={f.value}
                 onClick={() => {
+                  skipScrollRef.current = true;
                   setActiveFilter(f.value);
                   setSelectedProductSlug(null);
                   setActiveSubCategory(null);
@@ -609,6 +624,7 @@ export default function MarketplacePage() {
                     )}
                     <button
                       onClick={() => {
+                        skipScrollRef.current = true;
                         setActiveSubCategory(sub.slug);
                         setSelectedProductSlug(sub.slug);
                         setTooltipCard(null);
@@ -749,7 +765,7 @@ export default function MarketplacePage() {
           </div>
         </div>
 
-        <div className="mx-auto w-full max-w-[1400px] px-6 md:px-8 lg:px-12">
+        <div ref={detailContentRef} className="mx-auto w-full max-w-[1400px] px-6 md:px-8 lg:px-12">
           {isFilteredView && filterProducts.length > 0 ? (
             /* ── Filtered: Show inline product detail view(s) ── */
             <div>

@@ -15,7 +15,6 @@ export default function HomePage() {
         draggable={false}
         onContextMenu={(e) => e.preventDefault()}
         className="w-full h-auto select-none"
-        style={{ 'webkitUserDrag': 'none' } as React.CSSProperties}
       />
     </div>
   );

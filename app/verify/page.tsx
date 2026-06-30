@@ -40,7 +40,7 @@ function EmailOverlay({ children }: { children: React.ReactNode }) {
       className="fixed inset-0 z-[100] overflow-hidden bg-white"
     >
       <div className="absolute inset-0">
-        <Image src="/email.png" alt="Email background" fill className="object-cover select-none" priority draggable={false} onContextMenu={(e) => e.preventDefault()} style={{ 'webkitUserDrag': 'none' } as React.CSSProperties} />
+        <Image src="/email.png" alt="Email background" fill className="object-cover select-none" priority draggable={false} onContextMenu={(e) => e.preventDefault()}  />
       </div>
       <div className="absolute right-[4%] top-[12%] bottom-[12%] w-[65%] overflow-y-auto">
         {children}
@@ -180,7 +180,7 @@ function VerifyForm() {
             onClick={handleStripeClick}
           >
             <div className="relative w-full h-full">
-              <Image src="/stripe.png" alt="Stripe Checkout" fill className="object-contain select-none" priority draggable={false} onContextMenu={(e) => e.preventDefault()} style={{ 'webkitUserDrag': 'none' } as React.CSSProperties} />
+              <Image src="/stripe.png" alt="Stripe Checkout" fill className="object-contain select-none" priority draggable={false} onContextMenu={(e) => e.preventDefault()}  />
             </div>
           </motion.div>
         )}
