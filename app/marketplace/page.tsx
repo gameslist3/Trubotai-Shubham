@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { Calculator, Briefcase, Database, Rocket, Users, Sparkles, Building2, FileText, Home, Crosshair, Shield, TrendingUp, Handshake, Globe, Mail, Calendar, Send, Gift, ArrowRight, Info, X } from "lucide-react";
 import { getProductsByFilter, products, filterToSlugs } from "@/lib/product-data";
@@ -54,7 +54,6 @@ const filterSubCategories: Record<string, SubCategory[]> = {
     { name: "Architecture PRD", slug: "architecture-prd", price: "49" },
     { name: "Product PRD", slug: "product-prds", price: "39" },
     { name: "Proposals Docs", slug: "proposals-docs", price: "99" },
-    { name: "Sample PRD", slug: "sample-prd", price: "99" },
     { name: "Project Timeline Templates", slug: "project-timeline-templates", price: "49" },
     { name: "Website Content", slug: "website-content", price: "199" },
     { name: "Lean PRD", slug: "lean-prd", price: "99" },
@@ -446,7 +445,6 @@ const categories: Category[] = [
   { name: "Architecture PRD", tag: "sdlc-templates", icon: Building2, price: "49", href: "/marketplace/architecture-prd", bg: "bg-teal-100", iconColor: "text-teal-600", desc: "Comprehensive architecture documentation templates for system design. Define constraints, trade-offs, and technical decisions with clarity." },
   { name: "Product PRD", tag: "sdlc-templates", icon: FileText, price: "39", href: "/marketplace/product-prds", bg: "bg-amber-100", iconColor: "text-amber-600", desc: "Ready-to-use product requirement document templates. Streamline product planning, align stakeholders, and ship with confidence." },
   { name: "Proposals Docs", tag: "sdlc-templates", icon: FileText, price: "99", href: "/marketplace/proposals-docs", bg: "bg-blue-100", iconColor: "text-blue-600", desc: "Professional proposal and business plan templates for grant applications and client pitches." },
-  { name: "Sample PRD", tag: "sdlc-templates", icon: FileText, price: "99", href: "/marketplace/sample-prd", bg: "bg-amber-100", iconColor: "text-amber-600", desc: "Ready-to-use PRD samples and templates to help product teams define, scope, and communicate requirements." },
   { name: "Project Timeline Templates", tag: "sdlc-templates", icon: Calendar, price: "49", href: "/marketplace/project-timeline-templates", bg: "bg-teal-100", iconColor: "text-teal-600", desc: "Professional project timeline and Gantt chart templates to plan, track, and deliver projects on time." },
   { name: "Website Content", tag: "sdlc-templates", icon: Globe, price: "199", href: "/marketplace/website-content", bg: "bg-cyan-100", iconColor: "text-cyan-600", desc: "15 professionally written content documents covering every page of an AI startup website." },
   { name: "Lean PRD", tag: "sdlc-templates", icon: FileText, price: "99", href: "/marketplace/lean-prd", bg: "bg-amber-100", iconColor: "text-amber-600", desc: "Streamlined Lean PRD template to define, validate, and communicate product requirements fast." },
@@ -462,7 +460,6 @@ const categories: Category[] = [
 
 // ── Cards that should not show "See more" ──
 const CARDS_WITHOUT_SEE_MORE = new Set([
-  "Sample PRD",
   "Project Timeline Templates",
   "Cold Email Templates",
   "Leads (150M)",
@@ -766,12 +763,24 @@ export default function MarketplacePage() {
         </div>
 
         <div ref={detailContentRef} className="mx-auto w-full max-w-[1400px] px-6 md:px-8 lg:px-12">
+          <AnimatePresence mode="wait">
           {isFilteredView && filterProducts.length > 0 ? (
             /* ── Filtered: Show inline product detail view(s) ── */
-            <div>
+            <motion.div
+              key={`filtered-${activeFilter}-${activeSubCategory || currentProductSlug}`}
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -16 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+            >
               {/* Multi-product selector — only shown when no sub-category tabs exist */}
               {!hasSubCategories && filterProducts.length > 1 && (
-                <div className="flex flex-wrap items-center justify-center gap-2 mb-6">
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.1 }}
+                  className="flex flex-wrap items-center justify-center gap-2 mb-6"
+                >
                   {filterProducts.map((p) => {
                     const slug = Object.keys(products).find((s) => products[s].name === p.name) || "";
                     const isActive = currentProductSlug === slug;
@@ -789,28 +798,50 @@ export default function MarketplacePage() {
                       </button>
                     );
                   })}
-                </div>
+                </motion.div>
               )}
 
               {currentProductSlug && products[currentProductSlug] ? (
-                <div>
+                <motion.div
+                  key={currentProductSlug}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.35, ease: "easeOut" }}
+                >
                   {/* Breadcrumb */}
-                  <div className="flex items-center gap-2 text-xs text-gray-400 mb-6">
+                  <motion.div
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.05 }}
+                    className="flex items-center gap-2 text-xs text-gray-400 mb-6"
+                  >
                     <span className="text-gray-600 font-medium">
                       {filters.find((f) => f.value === activeFilter)?.label}
                     </span>
                     <span className="text-gray-300">/</span>
                     <span className="text-[#18352b] font-medium">{products[currentProductSlug].name}</span>
-                  </div>
+                  </motion.div>
                   <ProductDetailView product={products[currentProductSlug]} slug={currentProductSlug} />
-                </div>
+                </motion.div>
               ) : (
-                <p className="text-center text-gray-400 py-16">Product not found.</p>
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="text-center text-gray-400 py-16"
+                >
+                  Product not found.
+                </motion.p>
               )}
-            </div>
+            </motion.div>
           ) : (
             /* ── "All" filter: Show card grid ── */
-            <div>
+            <motion.div
+              key="all-grid"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -16 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+            >
               {/* ── Cards Grid ── */}
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredCategories.map((cat, index) => {
@@ -1018,8 +1049,9 @@ export default function MarketplacePage() {
                   No products match this category.
                 </p>
               )}
-            </div>
+            </motion.div>
           )}
+          </AnimatePresence>
         </div>
       </section>
 

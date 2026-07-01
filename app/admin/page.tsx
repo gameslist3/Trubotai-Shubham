@@ -16,14 +16,14 @@ const stats = [
 ];
 
 const recentOrders = [
-  { id: "ORD-ABC123", customer: "alex@example.com", product: "Investor Database", amount: "$199", status: "Completed", date: "2 min ago" },
+  { id: "ORD-ABC123", customer: "alex@example.com", product: "Investor", amount: "$199", status: "Completed", date: "2 min ago" },
   { id: "ORD-DEF456", customer: "sarah@agency.com", product: "TruLead LTD", amount: "$799", status: "Processing", date: "15 min ago" },
   { id: "ORD-GHI789", customer: "marcus@startup.io", product: "Pitch Deck Bundle", amount: "$49", status: "Completed", date: "1 hour ago" },
   { id: "ORD-JKL012", customer: "emily@corp.com", product: "TruCRM LTD", amount: "$999", status: "Pending", date: "3 hours ago" },
 ];
 
 const products = [
-  { name: "Investor Database", sales: 45, revenue: "$8,955", status: "Active" },
+  { name: "Investor", sales: 45, revenue: "$8,955", status: "Active" },
   { name: "TruLead", sales: 32, revenue: "$25,568", status: "Active" },
   { name: "Pitch Deck Bundle", sales: 28, revenue: "$1,372", status: "Active" },
   { name: "Finance Templates", sales: 22, revenue: "$1,078", status: "Active" },
@@ -174,9 +174,9 @@ export default function AdminDashboard() {
               </thead>
               <tbody>
                 {[
-                  { name: "Investor Database", cat: "Database", price: "$199", sales: 45, status: "Published" },
+                  { name: "Investor", cat: "Database", price: "$199", sales: 45, status: "Published" },
                   { name: "Finance Templates", cat: "Templates", price: "$49", sales: 22, status: "Published" },
-                  { name: "Grant Database", cat: "Database", price: "$49", sales: 18, status: "Draft" },
+                  { name: "Grant", cat: "Database", price: "$49", sales: 18, status: "Draft" },
                   { name: "UI/UX Bundle", cat: "Bundle", price: "$49", sales: 15, status: "Published" },
                 ].map((item) => (
                   <tr key={item.name} className="border-b border-gray-200 hover:bg-gray-50 transition-colors">

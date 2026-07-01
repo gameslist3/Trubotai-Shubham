@@ -12,13 +12,13 @@ const purchasedProducts = [
 ];
 
 const recentPurchases = [
-  { name: "Investor Database", date: "2 days ago", price: "199", status: "Delivered" },
+  { name: "Investor", date: "2 days ago", price: "199", status: "Delivered" },
   { name: "Pitch Deck Bundle", date: "1 week ago", price: "49", status: "Delivered" },
   { name: "UI/UX Templates", date: "2 weeks ago", price: "19", status: "Delivered" },
 ];
 
 const recommendedAssets = [
-  { name: "Grant Database", items: "500+ Grants", price: "49" },
+  { name: "Grant", items: "500+ Grants", price: "49" },
   { name: "PRD Bundle", items: "5 Templates", price: "49" },
   { name: "Architecture Bundle", items: "10 Docs", price: "49" },
 ];

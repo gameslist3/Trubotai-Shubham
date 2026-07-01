@@ -9,7 +9,7 @@ import { Search, Download } from "lucide-react";
 import { formatPrice, formatDate } from "@/lib/utils";
 
 const orders = [
-  { id: "ORD-ABC123", product: "Investor Database", type: "Asset", date: "2024-06-07", amount: 199, status: "Delivered", invoice: true },
+  { id: "ORD-ABC123", product: "Investor", type: "Asset", date: "2024-06-07", amount: 199, status: "Delivered", invoice: true },
   { id: "ORD-DEF456", product: "Pitch Deck Bundle", type: "Asset", date: "2024-06-01", amount: 49, status: "Delivered", invoice: true },
   { id: "ORD-GHI789", product: "TruLead", type: "LTD", date: "2024-05-28", amount: 799, status: "Active", invoice: true },
   { id: "ORD-JKL012", product: "TruCRM", type: "LTD", date: "2024-05-28", amount: 999, status: "Active", invoice: true },

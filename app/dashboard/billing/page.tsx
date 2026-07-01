@@ -8,7 +8,7 @@ import { CreditCard, Download, CheckCircle } from "lucide-react";
 import { formatDate } from "@/lib/utils";
 
 const invoices = [
-  { id: "INV-001", date: "2024-06-07", amount: 199, status: "Paid", product: "Investor Database" },
+  { id: "INV-001", date: "2024-06-07", amount: 199, status: "Paid", product: "Investor" },
   { id: "INV-002", date: "2024-06-01", amount: 49, status: "Paid", product: "Pitch Deck Bundle" },
   { id: "INV-003", date: "2024-05-28", amount: 799, status: "Paid", product: "TruLead LTD" },
   { id: "INV-004", date: "2024-05-28", amount: 999, status: "Paid", product: "TruCRM LTD" },

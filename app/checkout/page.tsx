@@ -21,7 +21,6 @@ const productPrices: Record<string, number> = {
   "website-content": 199,
   "pitch-deck-samples": 99,
   "proposals-docs": 99,
-  "sample-prd": 99,
   "project-timeline-templates": 49,
   "cold-email-templates": 49,
   "150m-leads": 1999,
@@ -30,8 +29,8 @@ const productPrices: Record<string, number> = {
 };
 
 const productNames: Record<string, string> = {
-  "investor-database": "Investor Database", "finance-templates": "Finance Templates",
-  "grant-database": "Grant Database", "accelerator-database": "Accelerator Database",
+  "investor-database": "Investor", "finance-templates": "Finance Templates",
+  "grant-database": "Grant", "accelerator-database": "Accelerator",
   "1m-leads": "1M B2B Leads", "1m-b2b-leads": "1M B2B Leads",
   "prds": "Product PRDs", "prd-bundle": "PRD Bundle",
   "architecture-docs": "Architecture Docs", "architecture-bundle": "Architecture Bundle",
@@ -45,7 +44,6 @@ const productNames: Record<string, string> = {
   "website-content": "Website Content",
   "pitch-deck-samples": "Pitch Deck Samples",
   "proposals-docs": "Proposals Docs",
-  "sample-prd": "Sample PRD",
   "project-timeline-templates": "Project Timeline Templates",
   "cold-email-templates": "Cold Email Templates",
   "150m-leads": "150M Leads",

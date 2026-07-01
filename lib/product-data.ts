@@ -46,7 +46,7 @@ export const products: Record<string, ProductData> = {
     previewType: "finance",
   },
   "investor-database": {
-    name: "Investor Database",
+    name: "Investor",
     tagline: "12,000+ verified investors — reach the right VCs and angels for your startup.",
     description: "Curated investor database with detailed funding preferences and contact info. Connect with the right VCs and angels for your startup.",
     longDescription: "Skip months of research. Start conversations that matter. Fundraising isn't just about your pitch — it's about reaching the right investors at the right stage. This database gives you a ready-made, high-quality starting point so you can focus on closing, not hunting.",
@@ -64,7 +64,7 @@ export const products: Record<string, ProductData> = {
     previewType: "investor",
   },
   "grant-database": {
-    name: "Grant Database",
+    name: "Grant",
     tagline: "500+ active grants and funding programs — stop searching, start applying.",
     description: "Comprehensive grant database with eligibility filters and deadline tracking. Find and secure funding for your next big project.",
     longDescription: "Stop digging through scattered websites. Start applying faster. Grants, government programs, and accelerators are some of the best funding sources — but they're buried across dozens of portals, deadlines, and eligibility criteria. We've done the research for you — so you can focus on applying and winning.",
@@ -82,7 +82,7 @@ export const products: Record<string, ProductData> = {
     previewType: "database",
   },
   "accelerator-database": {
-    name: "Accelerator Database",
+    name: "Accelerator",
     tagline: "300+ top accelerators worldwide — apply at the right time with the right program.",
     description: "Top startup accelerator programs with application details and success metrics. Get into the best programs to scale faster.",
     longDescription: "Don't miss the window. Apply at the right time. Accelerators can fast-track your startup with funding, mentorship, and network access — but the biggest challenge is knowing which ones to apply to and when. We've mapped it all for you — so you never miss a relevant opportunity again.",
@@ -487,24 +487,6 @@ export const products: Record<string, ProductData> = {
     iconColor: "text-blue-600",
     previewType: "document",
   },
-  "sample-prd": {
-    name: "Sample PRD",
-    tagline: "Professional product requirement document samples to kickstart your product development.",
-    description: "Ready-to-use PRD samples and templates to help product teams define, scope, and communicate product requirements clearly.",
-    longDescription: "Learn from real PRD examples used by professional product teams. Our sample PRDs give you a clear template for defining features, writing user stories, setting acceptance criteria, and aligning stakeholders.",
-    price: 99,
-    icon: FileText,
-    features: ["Real PRD sample documents", "User story frameworks", "Acceptance criteria examples", "Feature specification templates", "Priority & roadmap matrices", "Stakeholder alignment guides"],
-    whatsIncluded: ["Sample PRD documents", "User story templates", "Acceptance criteria guides", "Feature spec templates", "Priority matrix frameworks", "Best practices handbook"],
-    keyBenefits: ["Learn from real-world PRD examples", "Industry-standard documentation", "Clear spec-to-handoff workflow", "Works for SaaS, apps & more", "Adaptable to any methodology", "Instant download, lifetime access"],
-    useCases: ["Product managers writing specs", "Founders defining product requirements", "Engineering teams receiving specs", "Startup product documentation", "Team alignment workshops"],
-    deliverables: ["Sample PRD documents", "Editable templates", "Best practices guide"],
-    color: "from-amber-500/10 to-amber-600/5",
-    bgColor: "bg-amber-50",
-    iconBg: "bg-amber-100",
-    iconColor: "text-amber-600",
-    previewType: "document",
-  },
   "project-timeline-templates": {
     name: "Project Timeline Templates",
     tagline: "Plan, track, and deliver projects on time with professional timeline templates.",
@@ -587,7 +569,7 @@ export const products: Record<string, ProductData> = {
     price: 5299,
     icon: Gift,
     features: ["Every digital asset included — 22 products total", "Save 90%+ vs. individual prices ($24k+ value)", "Finance templates & investor databases", "GTM strategies & NDA packs", "B2B lead databases (1M to 390M)", "All future updates & new releases included"],
-    whatsIncluded: ["Finance Templates ($49 value)", "Investor Database ($199 value)", "Grant Database ($49 value)", "Accelerator Database ($49 value)", "Leads (1M) ($49 value)", "AI LinkedIn Prompts Pack ($49 value)", "Architecture PRD ($49 value)", "Product PRDs ($39 value)", "GTM and Strategy ($199 value)", "NDA and Agreements ($99 value)", "M&A Strategy ($199 value)", "Channel Partner Pack ($99 value)", "Website Content ($199 value)", "Pitch Deck Samples ($99 value)", "Proposals Docs ($99 value)", "Project Timeline Templates ($49 value)", "Cold Email Templates ($49 value)", "150M Leads ($1,999 value)", "390M Leads ($3,999 value)", "Real Estate ($49 value)", "Lean PRD ($99 value)", "And more..."],
+    whatsIncluded: ["Finance Templates ($49 value)", "Investor ($199 value)", "Grant ($49 value)", "Accelerator ($49 value)", "Leads (1M) ($49 value)", "AI LinkedIn Prompts Pack ($49 value)", "Architecture PRD ($49 value)", "Product PRDs ($39 value)", "GTM and Strategy ($199 value)", "NDA and Agreements ($99 value)", "M&A Strategy ($199 value)", "Channel Partner Pack ($99 value)", "Website Content ($199 value)", "Pitch Deck Samples ($99 value)", "Proposals Docs ($99 value)", "Project Timeline Templates ($49 value)", "Cold Email Templates ($49 value)", "150M Leads ($1,999 value)", "390M Leads ($3,999 value)", "Real Estate ($49 value)", "Lean PRD ($99 value)", "And more..."],
     keyBenefits: ["Everything in one bundle", "90%+ savings vs. individual purchase", "Complete business toolkit — 22 premium assets", "Lifetime access to all assets", "All future updates included", "One-time purchase, use forever"],
     useCases: ["Entrepreneurs wanting the complete toolkit", "Agencies needing every template", "Founders building from scratch", "Consultants with diverse client needs", "Business owners wanting maximum value"],
     deliverables: ["Complete asset library (22 products)", "Master index document", "Bundle delivery guide", "Lifetime updates included"],
@@ -623,7 +605,7 @@ export const filterToSlugs: Record<string, string[]> = {
   "finance": ["finance-templates"],
   "investor": ["investor-database"],
   "database": ["grant-database", "accelerator-database", "1m-leads"],
-  "template": ["architecture-prd", "product-prds", "pitch-deck-samples", "proposals-docs", "sample-prd", "project-timeline-templates", "cold-email-templates"],
+  "template": ["architecture-prd", "product-prds", "pitch-deck-samples", "proposals-docs", "project-timeline-templates", "cold-email-templates"],
   "ai": ["ai-linkedin-prompts", "cold-email-templates"],
   "gtm": ["gtm-strategy"],
   "nda": ["nda-pack"],
@@ -637,7 +619,7 @@ export const filterToSlugs: Record<string, string[]> = {
   "strategy": ["channel-partners", "gtm-strategy", "pitch-deck-samples", "nda-pack", "ma-strategy"],
   "data-assets": ["accelerator-database", "grant-database", "investor-database", "250k-leads", "1m-leads"],
   "leads-bulk": ["150m-leads", "390m-leads"],
-  "sdlc-templates": ["architecture-prd", "product-prds", "proposals-docs", "sample-prd", "project-timeline-templates", "website-content", "lean-prd"],
+  "sdlc-templates": ["architecture-prd", "product-prds", "proposals-docs", "project-timeline-templates", "website-content", "lean-prd"],
 };
 
 export function getProductsByFilter(filter: string): ProductData[] {

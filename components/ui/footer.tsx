@@ -13,9 +13,9 @@ const footerLinks = {
   ],
   Solutions: [
     { href: "/marketplace", label: "Asset Marketplace" },
-    { href: "/marketplace/investor-database", label: "Investor Database" },
+    { href: "/marketplace/investor-database", label: "Investor" },
     { href: "/marketplace/1m-leads", label: "B2B Leads" },
-    { href: "/marketplace/grant-database", label: "Grant Database" },
+    { href: "/marketplace/grant-database", label: "Grant" },
     { href: "/marketplace/prd-bundle", label: "PRD Bundle" },
     { href: "/marketplace/gtm-strategy", label: "GTM and Strategy" },
     { href: "/marketplace/nda-pack", label: "NDA Pack" },

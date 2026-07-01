@@ -23,7 +23,7 @@ const faqs = [
   },
   {
     q: "How often are the databases updated?",
-    a: "Our databases are updated quarterly to ensure accuracy. The Investor Database, Grant Database, and Lead Database are refreshed every 90 days with new verified entries.",
+    a: "Our databases are updated quarterly to ensure accuracy. The Investor, Grant, and Lead Databases are refreshed every 90 days with new verified entries.",
   },
   {
     q: "How does the purchase process work?",

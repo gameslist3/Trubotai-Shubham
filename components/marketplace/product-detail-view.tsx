@@ -26,7 +26,6 @@ const productImages: Record<string, string> = {
   "website-content": "/Website Content.png",
   "pitch-deck-samples": "/Pitch Deck Samples.png",
   "proposals-docs": "/Proposals Docs.png",
-  "sample-prd": "/Lean PRD.png",
   "project-timeline-templates": "/Project Timeline Templates.png",
   "cold-email-templates": "/Cold Email Templates.png",
   "250k-leads": "/Leads (250K).png",
